@@ -1,0 +1,48 @@
+# Elavarasan J — portfolio
+
+A single static page: Staff Engineer, 12+ years in enterprise frontend, specialising
+in agentic, test-driven UI generation.
+
+No framework, no build step, no dependencies. Three files and two images.
+
+## Run it
+
+Open `index.html` directly, or serve the folder:
+
+```bash
+python3 -m http.server 8765 --bind 127.0.0.1
+# http://127.0.0.1:8765/index.html
+```
+
+A server is only needed for tooling that blocks the `file:` protocol — the page
+itself works fine opened straight from disk.
+
+## Structure
+
+| Path | What it is |
+|---|---|
+| `index.html` | All content. Readable with CSS and JS disabled. |
+| `styles.css` | Design tokens, then layout, then components. |
+| `main.js` | Progressive enhancement only: live durations, the signature strip, the hero circuit. |
+| `elavarasan.jpeg` | Headshot, 200×200. |
+| `hoc.jpeg` | Hall of Fame certificate. |
+| `CLAUDE.md` | The design system and its rules. Read before changing anything visual. |
+| `docs/` | The design spec and the implementation plan it was built from. |
+
+## Deploying to GitHub Pages
+
+Settings → Pages → Deploy from a branch → `main` / root. The page is already at the
+repository root, so nothing needs moving.
+
+**After deploying, check the absolute URLs.** `index.html` has a `canonical` link,
+four Open Graph / Twitter tags, and a JSON-LD block that all assume
+`https://elavarasan-j.github.io/my_portfolio_2026/`. If you use a custom domain,
+update them — a canonical pointing at the wrong URL is worse than having none.
+
+## Notes
+
+- Durations are computed at page load from `data-since` attributes, so the tenure
+  figures never go stale. Never hardcode a duration for a role that is ongoing.
+- The design has a concept behind it: green is the test-passing state, because
+  test-driven agentic UI generation is the specialism the page is about. `CLAUDE.md`
+  explains what that means for the palette.

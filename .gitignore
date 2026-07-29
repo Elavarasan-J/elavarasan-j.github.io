@@ -1,0 +1,6 @@
+# Playwright MCP drops snapshots and console logs here during verification.
+.playwright-mcp/
+
+# OS noise
+.DS_Store
+Thumbs.db
