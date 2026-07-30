@@ -165,8 +165,23 @@ Six blocks, each with client, description, stack, and outcome.
 | Data Analytics Dashboards | 3M | React, Material UI, D3.js, Highcharts | High-performance interactive dashboards turning complex datasets into actionable business insight through advanced charting. |
 | Xyden | — | Agentic UI pipeline | Adaptive leadership maturity assessment platform for senior executives, delivered end-to-end in 2 months. **In progress, not public — described with no link.** |
 
-Top skills, surfaced as a compact stack list: Agentic AI, Mentoring, React.js,
-TypeScript, Zustand, Test-Driven Development.
+Top skills, surfaced as a compact stack list of five: Agentic AI, React.js,
+TypeScript, Test-driven development, Mentoring.
+
+Below them, six groups. A chip earns its place only if a recruiter learns something
+from it that the other chips do not already imply — which excludes table stakes
+(an editor, a package manager) and anything that pulls against the current
+positioning. Dropped on that rule: VS Code, FileZilla, npm/Yarn, JIRA, Photoshop,
+WordPress, Bootstrap, Cross-browser.
+
+| Group | Chips |
+|---|---|
+| Core | JavaScript (ES6+) · TypeScript · HTML · CSS · Python |
+| Frameworks & UI | React · Angular · StencilJS · Redux · Zustand · Material UI · shadcn/ui · Tailwind CSS · Micro-frontends · WebSocket |
+| Data visualisation | D3.js · Highcharts — kept as its own group despite holding two chips, because it is the 3M signal |
+| AI & agentic | Agentic UI generation · AI copilots & chatbots · Claude Code · GitHub Copilot · AWS Bedrock |
+| Tooling & delivery | Jest · Git · Docker · Vite · CI/CD · Nginx · Postman · Figma |
+| Practice | Agentic development · System architecture · Mentoring · Code review · Agile · Cross-functional collaboration |
 
 ### 6 · Recognition
 
