@@ -1,0 +1,3 @@
+# Treat PDFs as binary so git diffs the résumé as a single blob change, not
+# tens of thousands of text lines, when it's next updated.
+*.pdf binary

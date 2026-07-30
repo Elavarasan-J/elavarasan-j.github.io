@@ -111,7 +111,27 @@ The three stages are labelled in plain language, not jargon — a business reade
 should understand "design in, tested component out" without reading JSON. The payoff
 is the real measured number from the Agentic UI Builder work.
 
-### 3 · About — flat black, serif, generous measure
+### 3 · Skills
+
+Top skills, surfaced as a compact stack list of five: Agentic AI, React.js,
+TypeScript, Test-driven development, Mentoring.
+
+Below them, six groups. A chip earns its place only if a recruiter learns something
+from it that the other chips do not already imply — which excludes table stakes
+(an editor, a package manager) and anything that pulls against the current
+positioning. Dropped on that rule: VS Code, FileZilla, npm/Yarn, JIRA, Photoshop,
+WordPress, Bootstrap, Cross-browser.
+
+| Group | Chips |
+|---|---|
+| Core | JavaScript (ES6+) · TypeScript · HTML · CSS · Python |
+| Frameworks & UI | React · Angular · StencilJS · Redux · Zustand · Material UI · shadcn/ui · Tailwind CSS · Micro-frontends · WebSocket |
+| Data visualisation | D3.js · Highcharts — kept as its own group despite holding two chips, because it is the 3M signal |
+| AI & agentic | Agentic UI generation · AI copilots & chatbots · Claude Code · GitHub Copilot · AWS Bedrock |
+| Tooling & delivery | Jest · Git · Docker · Vite · CI/CD · Nginx · Postman · Figma |
+| Practice | Agentic development · System architecture · Mentoring · Code review · Agile · Cross-functional collaboration |
+
+### 4 · About — flat black, serif, generous measure
 
 Tightened from the subject's own words. Covers: 12+ years building scalable web
 applications and AI-driven interfaces with React, TypeScript, and D3.js;
@@ -119,7 +139,7 @@ specialisation in agentic AI-driven development workflows with a TDD approach,
 accelerating delivery and reducing rework; work spanning AI-powered dashboards,
 conversational interfaces, data visualisation, and reusable component architecture.
 
-### 4 · Experience
+### 5 · Experience
 
 Grouped by employer. Each role shows title, dates, duration, location, and a single
 compact line naming the clients served in that role — full project detail lives in
@@ -152,7 +172,7 @@ their LinkedIn).
 
 **Education:** Arunai College of Engineering.
 
-### 5 · Selected work
+### 6 · Selected work
 
 Six blocks, each with client, description, stack, and outcome.
 
@@ -165,25 +185,7 @@ Six blocks, each with client, description, stack, and outcome.
 | Data Analytics Dashboards | 3M | React, Material UI, D3.js, Highcharts | High-performance interactive dashboards turning complex datasets into actionable business insight through advanced charting. |
 | Xyden | — | Agentic UI pipeline | Adaptive leadership maturity assessment platform for senior executives, delivered end-to-end in 2 months. **In progress, not public — described with no link.** |
 
-Top skills, surfaced as a compact stack list of five: Agentic AI, React.js,
-TypeScript, Test-driven development, Mentoring.
-
-Below them, six groups. A chip earns its place only if a recruiter learns something
-from it that the other chips do not already imply — which excludes table stakes
-(an editor, a package manager) and anything that pulls against the current
-positioning. Dropped on that rule: VS Code, FileZilla, npm/Yarn, JIRA, Photoshop,
-WordPress, Bootstrap, Cross-browser.
-
-| Group | Chips |
-|---|---|
-| Core | JavaScript (ES6+) · TypeScript · HTML · CSS · Python |
-| Frameworks & UI | React · Angular · StencilJS · Redux · Zustand · Material UI · shadcn/ui · Tailwind CSS · Micro-frontends · WebSocket |
-| Data visualisation | D3.js · Highcharts — kept as its own group despite holding two chips, because it is the 3M signal |
-| AI & agentic | Agentic UI generation · AI copilots & chatbots · Claude Code · GitHub Copilot · AWS Bedrock |
-| Tooling & delivery | Jest · Git · Docker · Vite · CI/CD · Nginx · Postman · Figma |
-| Practice | Agentic development · System architecture · Mentoring · Code review · Agile · Cross-functional collaboration |
-
-### 6 · Recognition
+### 7 · Recognition
 
 `hoc.jpeg` framed, with a subtle warm halo, alongside the citation.
 
@@ -198,7 +200,7 @@ Signatories: Ajith Sahasranamam, CEO, Ongil.ai · Srinivasan Rengarajan, CTO, On
 The image needs descriptive alt text conveying the award name and the awarding
 organisation, since the certificate carries real information.
 
-### 7 · Contact
+### 8 · Contact
 
 | Channel | Value |
 |---|---|

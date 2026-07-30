@@ -3,7 +3,8 @@
 A single static page: Staff Engineer, 12+ years in enterprise frontend, specialising
 in agentic, test-driven UI generation.
 
-No framework, no build step, no dependencies. Three files and two images.
+No framework, no build step, no dependencies. Three files, two images, and the
+résumé PDF.
 
 ## Run it
 
@@ -26,6 +27,7 @@ itself works fine opened straight from disk.
 | `main.js` | Progressive enhancement only: live durations, the signature strip, the hero circuit. |
 | `elavarasan.jpeg` | Headshot, 200×200. |
 | `hoc.jpeg` | Hall of Fame certificate. |
+| `Elavarasan_Resume_2026.pdf` | Résumé, linked from the hero and Contact. Must stay tracked in git or the download link 404s on Pages. |
 | `CLAUDE.md` | The design system and its rules. Read before changing anything visual. |
 | `docs/` | The design spec and the implementation plan it was built from. |
 
@@ -35,8 +37,8 @@ Settings → Pages → Deploy from a branch → `main` / root. The page is alrea
 repository root, so nothing needs moving.
 
 **After deploying, check the absolute URLs.** `index.html` has a `canonical` link,
-four Open Graph / Twitter tags, and a JSON-LD block that all assume
-`https://elavarasan-j.github.io/my_portfolio_2026/`. If you use a custom domain,
+Open Graph / Twitter tags, and a JSON-LD block that all assume
+`https://elavarasan-j.github.io/`. If you use a custom domain,
 update them — a canonical pointing at the wrong URL is worse than having none.
 
 ## Notes

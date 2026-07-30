@@ -1,5 +1,14 @@
 # Profile Site Implementation Plan
 
+> **Historical record — superseded 2026-07-29.** This plan documents the site's
+> original build, including a Figma "View résumé" link. That link was replaced by a
+> committed, same-origin PDF download (`Elavarasan_Resume_2026.pdf`) on 2026-07-29.
+> Every reference below to the Figma résumé URL, the "View résumé" label, or
+> assertion **A7** describes that earlier, no-longer-true state — A7 as written now
+> throws on `null`. `CLAUDE.md` is the authority for current rules; see its Content
+> rules section for the résumé's actual current behaviour. Nothing in this file
+> should be read as a live requirement or a passing test.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a single static profile page for Elavarasan J — a permanent, credible professional presence aimed at recruiters, HR, and business readers.
@@ -26,7 +35,10 @@ Every task's requirements implicitly include this section.
 - **Vertical section rhythm is owned by the single `.section` rule.** No other selector declares `padding-block` on a section, to avoid specificity fights.
 - **Every number on the page is one the subject supplied.** Invent no metrics.
 - **Copy rules:** active voice, sentence case, no third-person pronouns for the subject. The certificate citation is quoted verbatim and keeps the certificate's own wording.
-- **Résumé action reads "View résumé"** — it opens Figma and must not promise a download.
+- ~~**Résumé action reads "View résumé"** — it opens Figma and must not promise a download.~~
+  **Superseded (2026-07-29):** the résumé is a same-origin PDF download
+  (`Elavarasan_Resume_2026.pdf`), labelled "Download résumé" in the hero and
+  "Download PDF · 2 MB" in Contact. See `CLAUDE.md`.
 - **Availability wording, verbatim:** "Open to collaborating on frontend architecture, scalable UI platforms, and AI-integrated product experiences." No job-seeking language anywhere.
 - **No test framework.** Verification is Playwright MCP browser assertions plus screenshot critique.
 
@@ -109,9 +121,11 @@ These are the assertions this task must satisfy. Record them; they are run in St
 //         hoc.jpeg has alt naming the award and Ongil.ai, width="1280" height="904",
 //         loading="lazy"
 
-// A7 — résumé link is labelled "View résumé", never "Download"
-() => document.querySelector('a[href*="figma.com"]').textContent.trim()
-// expect: "View résumé"
+// A7 — RETIRED (2026-07-29): the résumé link is no longer a Figma URL, so this
+// assertion throws on null and must not be run. It documented the old behaviour
+// only. Current equivalent, matching the same-origin PDF download:
+// () => document.querySelector('a[href$=".pdf"][download]').textContent.trim()
+// expect: "Download résumé"
 
 // A8 — landmarks present
 () => ({

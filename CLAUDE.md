@@ -48,9 +48,9 @@ key figures. When in doubt, more green on structure, none on prose.
 
 | Face | Role | Notes |
 |---|---|---|
-| **Space Grotesk** | Display — name, section heads, employer and work names, skill chips | Mixed case. **Never uppercase.** The owner rejected uppercase display type. |
+| **Space Grotesk** | Display — name, section heads, employer and work names, the five featured skill badges (`.skills__top`) | Mixed case. **Never uppercase.** The owner rejected uppercase display type. |
 | **Newsreader** | Body serif — prose, role notes | 19px, weight 450 so strokes hold up on black. |
-| **IBM Plex Mono** | Utility only — dates, durations, locations, stack, labels, badges | Uppercase here is correct and intentional. Never body copy. |
+| **IBM Plex Mono** | Utility only — dates, durations, locations, stack, labels, badges, the group skill chips (`.chips`) | Uppercase here is correct and intentional, including the group skill chips. Never body copy. |
 
 Loaded from Google Fonts with system fallbacks. Keep the fallbacks.
 
@@ -130,8 +130,13 @@ load by `renderDurations()`. Closed roles keep fixed figures in the markup.
 - **No school entries.** The degree line under About is the whole education story.
 - Xyden is **not public** — describe it, never link it, keep its "In progress" badge.
 - Every role carries a one-line description. Keep that consistent if you add one.
-- External links open in a new tab with `rel="noopener"`. `mailto:`, `tel:`, and the
-  in-page skip link deliberately do **not** — a new tab breaks them.
+- External links open in a new tab with `rel="noopener"`. `mailto:`, `tel:`, the
+  in-page skip link, and the same-origin résumé PDF deliberately do **not** — a new
+  tab breaks the first three, and the résumé isn't external.
+- The served résumé PDF is known to disagree with the page on three points: job
+  title, tenure, and the Asareri Technologies role title. The page is correct and
+  authoritative; the résumé is pending an update from the owner. Do not "reconcile"
+  the page down to the résumé.
 
 ## Copy
 
