@@ -120,8 +120,13 @@ load by `renderDurations()`. Closed roles keep fixed figures in the markup.
   "Greater Chennai Area".
 - **No client lines under the Ongil.ai roles.** Clients are named per project in
   Selected work instead. Vanguard, Capgemini, and 3M are all fine to name publicly.
-- **No résumé link anywhere.** A Figma résumé link was removed on request — do not
-  add it back. Contact is email, phone, LinkedIn, GitHub.
+- **The résumé is a committed, same-origin PDF:** `Elavarasan_Resume_2026.pdf`,
+  linked from the hero actions and Contact. Both links carry `download` and no
+  `target` — it is same-origin, so the external-link rule does not apply. The file
+  must stay tracked in git or the link 404s on Pages. The label promises a download
+  because it performs one: "Download résumé" in the hero, "Download PDF · 2 MB" in
+  Contact. A **Figma** résumé link was removed on request — do not add that back.
+- Contact channels are email, phone, LinkedIn, GitHub, plus the résumé download.
 - **No school entries.** The degree line under About is the whole education story.
 - Xyden is **not public** — describe it, never link it, keep its "In progress" badge.
 - Every role carries a one-line description. Keep that consistent if you add one.

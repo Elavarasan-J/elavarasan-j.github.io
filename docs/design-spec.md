@@ -93,7 +93,7 @@ accurate indefinitely; the HTML ships a static `12 yrs 2 mos` as the no-JS fallb
 
 Thesis line: **"I build the systems that build interfaces."**
 
-Inline contact actions: email, LinkedIn, GitHub, resume.
+Inline contact actions: email, LinkedIn, GitHub, résumé download.
 
 Sparse drifting specks over the whole hero.
 
@@ -191,10 +191,13 @@ organisation, since the certificate carries real information.
 | Phone | +91 8015515823 |
 | LinkedIn | https://www.linkedin.com/in/elavarasanj/ |
 | GitHub | https://github.com/Elavarasan-J |
-| Résumé | https://www.figma.com/design/ohYIUOGxrrnRZlZihTa7IW/Ela-Resume-v1?t=hBJfygOzq2f4hoAe-0 |
+| Résumé | `Elavarasan_Resume_2026.pdf` (same-origin, `download`) |
 
-The résumé is a Figma link, not a PDF download, at the subject's request. The action
-is labelled **"View résumé"** — it opens Figma, so it must not promise a download.
+The résumé is a committed PDF download, at the subject's request — superseding an
+earlier Figma link, which must not come back. Because the action *does* download,
+it must say so: **"Download résumé"** in the hero, **"Download PDF · 2 MB"** in
+Contact. The file size belongs in Contact, where every other row shows its real
+destination; the hero stays terse.
 
 Soft availability line, in the subject's own wording: *"Open to collaborating on
 frontend architecture, scalable UI platforms, and AI-integrated product
