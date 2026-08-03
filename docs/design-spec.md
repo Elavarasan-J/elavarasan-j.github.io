@@ -116,20 +116,33 @@ is the real measured number from the Agentic UI Builder work.
 Top skills, surfaced as a compact stack list of five: Agentic AI, React.js,
 TypeScript, Test-driven development, Mentoring.
 
-Below them, six groups. A chip earns its place only if a recruiter learns something
+Below them, four groups. A chip earns its place only if a recruiter learns something
 from it that the other chips do not already imply — which excludes table stakes
-(an editor, a package manager) and anything that pulls against the current
-positioning. Dropped on that rule: VS Code, FileZilla, npm/Yarn, JIRA, Photoshop,
-WordPress, Bootstrap, Cross-browser.
+(an editor, a package manager, an editor's version control), anything that pulls
+against the current positioning, and anything the five badges above already say.
 
 | Group | Chips |
 |---|---|
-| Core | JavaScript (ES6+) · TypeScript · HTML · CSS · Python |
-| Frameworks & UI | React · Angular · StencilJS · Redux · Zustand · Material UI · shadcn/ui · Tailwind CSS · Micro-frontends · WebSocket |
-| Data visualisation | D3.js · Highcharts — kept as its own group despite holding two chips, because it is the 3M signal |
+| Frontend | JavaScript (ES6+) · React · Angular · StencilJS · Redux · Zustand · Micro-frontends |
+| UI & visualisation | Tailwind CSS · Material UI · shadcn/ui · D3.js · Highcharts · Figma |
 | AI & agentic | Agentic UI generation · AI copilots & chatbots · Claude Code · GitHub Copilot · AWS Bedrock |
-| Tooling & delivery | Jest · Git · Docker · Vite · CI/CD · Nginx · Postman · Figma |
-| Practice | Agentic development · System architecture · Mentoring · Code review · Agile · Cross-functional collaboration |
+| Engineering practice | Jest · Docker · CI/CD · System architecture · Code review |
+
+Twenty-three chips in four groups, laying out as a 2×2. This replaced an earlier
+six-group, thirty-six-chip arrangement that the owner found hard to scan.
+
+Dropped on the rule above, across both passes: VS Code, FileZilla, npm/Yarn, JIRA,
+Photoshop, WordPress, Bootstrap, Cross-browser, HTML, CSS, Python, WebSocket, Git,
+Vite, Nginx, Postman, Agile, Cross-functional collaboration.
+
+Dropped specifically as duplicates of the featured badges: **TypeScript**,
+**Mentoring**, and **Agentic development**. Nothing in the groups now repeats a
+badge — the one exception is `React`, which appears as `React.js` in the badges and
+`React` in Frontend, kept because the group reads oddly without it.
+
+Data visualisation no longer stands alone. Its two chips (D3.js, Highcharts) moved
+into UI & visualisation; the 3M signal survives in Selected work, which names the
+stack directly.
 
 ### 4 · About — flat black, serif, generous measure
 
