@@ -128,7 +128,14 @@ load by `renderDurations()`. Closed roles keep fixed figures in the markup.
   Contact. A **Figma** résumé link was removed on request — do not add that back.
 - Contact channels are email, phone, LinkedIn, GitHub, plus the résumé download.
 - **No school entries.** The degree line under About is the whole education story.
-- Xyden is **not public** — describe it, never link it, keep its "In progress" badge.
+- Xyden is **not public** — describe it, never link it. It no longer has its own
+  Selected work block; the About paragraph is where it lives now. If it is ever
+  restored to Selected work, it carries an "In progress" badge and no link.
+- **Selected work holds exactly three blocks**, chosen for breadth: one per client
+  (Vanguard, Capgemini, 3M) and one per capability (agentic tooling, AI product UI,
+  data visualisation). Agentic UI Builder leads because its outcome is the hero's
+  headline figure. The rest of the work lives behind the "See all projects" link at
+  the end of the section. Adding a fourth block means dropping one — keep it at three.
 - Every role carries a one-line description. Keep that consistent if you add one.
 - External links open in a new tab with `rel="noopener"`. `mailto:`, `tel:`, the
   in-page skip link, and the same-origin résumé PDF deliberately do **not** — a new

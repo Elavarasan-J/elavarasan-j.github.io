@@ -187,16 +187,33 @@ their LinkedIn).
 
 ### 6 · Selected work
 
-Six blocks, each with client, description, stack, and outcome.
+Three blocks, each with client, description, stack, and outcome.
 
 | Project | Client | Stack | Outcome |
 |---|---|---|---|
-| Recurring Transactions | Vanguard | StencilJS, TypeScript, Jest, Agentic UI Builder | Modernised a micro-frontend app for automated investment and withdrawal plans, integrating an AI chatbot to increase client self-service. Improved performance and usability. |
 | Agentic UI Builder | Vanguard | React, Zustand, shadcn/ui, AWS Bedrock | Contributed to an agentic UI generation workflow producing production-ready components from structured inputs via TDD. Cut component development time from 1–2 days to 1–2 hours. |
-| Figma to JSON Converter | Vanguard | JavaScript, Tailwind CSS, HTML, CSS | Design extraction tool converting Figma files into structured JSON with full component metadata. Replaced manual design interpretation with an automated design-to-code pipeline. |
 | Wealth Advisor Dashboard with Copilot | Capgemini | React, Redux, Material UI, WebSocket | Dual-mode dashboard with an AI copilot for consumers and advisors — portfolio analysis, risk visualisation, appointment scheduling. Improved investor decision-making and streamlined advisor consultations. |
 | Data Analytics Dashboards | 3M | React, Material UI, D3.js, Highcharts | High-performance interactive dashboards turning complex datasets into actionable business insight through advanced charting. |
-| Xyden | — | Agentic UI pipeline | Adaptive leadership maturity assessment platform for senior executives, delivered end-to-end in 2 months. **In progress, not public — described with no link.** |
+
+Three works, three clients, three capabilities — agentic tooling, AI product UI,
+and data visualisation. Nothing on the list repeats another entry's client or its
+point. Agentic UI Builder leads because its outcome is the hero's headline metric.
+
+This replaced an earlier six-block list. Dropped, and now living in the linked
+project list instead:
+
+- **Recurring Transactions** (Vanguard) — a second Vanguard entry, and the weakest
+  outcome line on the page.
+- **Figma to JSON Converter** (Vanguard) — a third Vanguard entry; the Agentic UI
+  Builder block already tells the design-to-code story.
+- **Xyden** — in progress, not public, and the only entry with no client and no
+  link. About still says it is being built, which is where that belongs.
+
+A **"See all projects"** link closes the section, pointing to an external Google
+Doc holding the full list. It is external, so it takes `target="_blank"` and
+`rel="noopener"`, and the label names the destination because the control must say
+what it does. The doc must be shared as "anyone with the link" or the link is a
+request-access wall.
 
 ### 7 · Recognition
 
