@@ -206,14 +206,24 @@ project list instead:
   outcome line on the page.
 - **Figma to JSON Converter** (Vanguard) — a third Vanguard entry; the Agentic UI
   Builder block already tells the design-to-code story.
-- **Xyden** — in progress, not public, and the only entry with no client and no
-  link. About still says it is being built, which is where that belongs.
+- **Xyden** — the only entry with no client and no link. About still says it is
+  being built, which is where that belongs.
 
-A **"See all projects"** link closes the section, pointing to an external Google
-Doc holding the full list. It is external, so it takes `target="_blank"` and
-`rel="noopener"`, and the label names the destination because the control must say
-what it does. The doc must be shared as "anyone with the link" or the link is a
-request-access wall.
+The section closes with **"Download the full project list · PDF"**, a
+`.work__more` paragraph linking `Elavarasan_Projects_2026.pdf` — ten projects,
+same-origin, `download`, no `target`. A Google Doc was considered and rejected:
+the doc would have lived on an account the subject could lose, and a page whose
+premise is that it still opens in ten years should not depend on one. The PDF
+sits beside the résumé under the same rule — it must stay tracked in git.
+
+`download` rather than in-tab navigation, because opening a PDF in the tab
+replaces the page the reader came for. The label says "Download" because that is
+what the control does.
+
+`.work__more` mirrors the `.work + .work` separator — `margin-top` and
+`padding-top` at `--space-4` over a `--line` hairline — so the link reads as the
+tail of the list rather than a stray element. It is a **direct child of `.shell`**,
+required by the rail grid at ≥64rem.
 
 ### 7 · Recognition
 

@@ -460,6 +460,15 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
 .work__stack { margin-bottom: var(--space-1); }
 .work__outcome { color: var(--paper); }
 
+/* Mirrors the .work + .work separator so the link reads as the tail of the
+   list rather than a stray element. The reset zeroes p margins, so without
+   this it sits flush against the last outcome line. */
+.work__more {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
 .contact__key { color: var(--signal); }
 
 /* ---------- recognition: the only warm note on the page ---------- */

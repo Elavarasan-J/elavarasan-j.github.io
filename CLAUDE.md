@@ -119,7 +119,10 @@ load by `renderDurations()`. Closed roles keep fixed figures in the markup.
   `Full-time · 4 Years 10 Months · Chennai, India`. Always "Chennai, India" — never
   "Greater Chennai Area".
 - **No client lines under the Ongil.ai roles.** Clients are named per project in
-  Selected work instead. Vanguard, Capgemini, and 3M are all fine to name publicly.
+  Selected work instead. Cleared to name publicly: Vanguard, Capgemini, 3M,
+  Xqtiv, Synapse Green, IIT Madras, and Ongil. The last four appear only in the
+  project-list PDF, not on the page. Anything not on this list needs the owner's
+  say-so before it goes anywhere public.
 - **The résumé is a committed, same-origin PDF:** `Elavarasan_Resume_2026.pdf`,
   linked from the hero actions and Contact. Both links carry `download` and no
   `target` — it is same-origin, so the external-link rule does not apply. The file
@@ -127,10 +130,20 @@ load by `renderDurations()`. Closed roles keep fixed figures in the markup.
   because it performs one: "Download résumé" in the hero, "Download PDF · 2 MB" in
   Contact. A **Figma** résumé link was removed on request — do not add that back.
 - Contact channels are email, phone, LinkedIn, GitHub, plus the résumé download.
+- **The full project list is a second committed, same-origin PDF:**
+  `Elavarasan_Projects_2026.pdf`, linked once from the end of Selected work as
+  "Download the full project list · PDF". Same rules as the résumé — `download`,
+  no `target`, must stay tracked in git. It holds ten projects, including the
+  three on the page; keep it that way, since the label promises the *full* list.
+  A Google Doc was considered and rejected: it would depend on an account the
+  owner could lose. Do not swap this for a hosted-elsewhere link.
 - **No school entries.** The degree line under About is the whole education story.
-- Xyden is **not public** — describe it, never link it. It no longer has its own
-  Selected work block; the About paragraph is where it lives now. If it is ever
-  restored to Selected work, it carries an "In progress" badge and no link.
+- Xyden has **no public URL** — describe it, never link to the product. It no
+  longer has its own Selected work block; the About paragraph is where it lives on
+  the page. If it is ever restored to Selected work, it carries an "In progress"
+  badge and no link. Note the project-list PDF *does* describe it in depth and
+  names its client, Xqtiv — the owner cleared that on 2026-08-03. "Not public"
+  now means "no link to a live product", not "do not mention".
 - **Selected work holds exactly three blocks**, chosen for breadth: one per client
   (Vanguard, Capgemini, 3M) and one per capability (agentic tooling, AI product UI,
   data visualisation). Agentic UI Builder leads because its outcome is the hero's

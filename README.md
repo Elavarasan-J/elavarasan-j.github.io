@@ -3,8 +3,8 @@
 A single static page: Staff Engineer, 12+ years in enterprise frontend, specialising
 in agentic, test-driven UI generation.
 
-No framework, no build step, no dependencies. Three files, two images, and the
-résumé PDF.
+No framework, no build step, no dependencies. Three files, two images, and two
+PDFs.
 
 ## Run it
 
@@ -28,6 +28,8 @@ itself works fine opened straight from disk.
 | `elavarasan.jpeg` | Headshot, 200×200. |
 | `hoc.jpeg` | Hall of Fame certificate. |
 | `Elavarasan_Resume_2026.pdf` | Résumé, linked from the hero and Contact. Must stay tracked in git or the download link 404s on Pages. |
+| `Elavarasan_Projects_2026.pdf` | Full project list — ten projects, linked from the end of Selected work. Same rule: must stay tracked or the link 404s. |
+| `.gitattributes` | Marks PDFs binary so updating one is a single blob change, not a 28,000-line diff. |
 | `CLAUDE.md` | The design system and its rules. Read before changing anything visual. |
 | `docs/` | The design spec and the implementation plan it was built from. |
 
