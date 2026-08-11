@@ -418,7 +418,17 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   background: var(--signal);
   box-shadow: 0 0 10px color-mix(in srgb, var(--signal) 70%, transparent);
 }
-.role + .role { margin-top: var(--space-4); }
+/* Padding, not margin: margin sits outside the border box and would break the
+   left rule into one stub per role. Padding keeps the trace unbroken through
+   the gap, so promotions at one employer read as a single continuous tenure.
+   Roles at different employers aren't siblings, so the line still breaks
+   between companies — which is the distinction worth drawing. */
+.role + .role {
+  padding-top: var(--space-4);
+}
+/* The node is positioned from the padding box, so it has to clear that padding
+   to stay level with the role title. */
+.role + .role::before { top: calc(var(--space-4) + 0.6em); }
 .role__title {
   font-size: var(--step-1);
   font-weight: 500;

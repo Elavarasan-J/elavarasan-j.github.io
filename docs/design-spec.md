@@ -125,11 +125,22 @@ against the current positioning, and anything the five badges above already say.
 |---|---|
 | Frontend | JavaScript (ES6+) · React · Angular · StencilJS · Redux · Zustand · Micro-frontends |
 | UI & visualisation | Tailwind CSS · Material UI · shadcn/ui · D3.js · Highcharts · Figma |
-| AI & agentic | Agentic UI generation · AI copilots & chatbots · Claude Code · GitHub Copilot · AWS Bedrock |
-| Engineering practice | Jest · Docker · CI/CD · System architecture · Code review |
+| AI & agentic | Agentic UI generation · Claude Code · GitHub Copilot |
+| Engineering practice | Docker · CI/CD · System architecture · Code review |
 
-Twenty-three chips in four groups, laying out as a 2×2. This replaced an earlier
+Twenty chips in four groups, laying out as a 2×2. This replaced an earlier
 six-group, thirty-six-chip arrangement that the owner found hard to scan.
+
+Three more chips came out later at the owner's request:
+
+- `AI copilots & chatbots` and `AWS Bedrock` from AI & agentic. Both survive
+  elsewhere on the page — Bedrock in the Agentic UI Builder stack line, copilots in
+  the Wealth Advisor description — so the claims hold without the chips, and
+  `AWS Bedrock` correctly stays in JSON-LD `knowsAbout`.
+- `Jest` from Engineering practice. Unlike the other two this leaves no trace in the
+  markup, since none of the three remaining works lists it in a stack. Testing is
+  carried entirely by the `Test-driven development` featured badge now — which was
+  always the stronger claim, the tool being the lesser half of it.
 
 Dropped on the rule above, across both passes: VS Code, FileZilla, npm/Yarn, JIRA,
 Photoshop, WordPress, Bootstrap, Cross-browser, HTML, CSS, Python, WebSocket, Git,
@@ -152,13 +163,44 @@ specialisation in agentic AI-driven development workflows with a TDD approach,
 accelerating delivery and reducing rework; work spanning AI-powered dashboards,
 conversational interfaces, data visualisation, and reusable component architecture.
 
+A fourth paragraph carries the current work: **Xyden**, an adaptive leadership
+maturity assessment platform for senior executives — *"a six-month scope delivered
+in two through an agentic UI pipeline."* This is the only place on the page that
+says what the subject is doing right now, and it is the thesis proven at product
+scale where the hero proves it at component scale (`1–2 days ▸ 1–2 hours`). The
+six-month figure is the subject's own, from the project-list PDF.
+
+An earlier wording — *"Currently building Xyden … delivered end to end in two
+months"* — was replaced because it contradicted itself: building or delivered?
+"Currently finishing" resolves the tense, and Xyden is genuinely in final testing.
+
+The section closes with a single `.education` line: **B.Tech, Information
+Technology · Arunai College of Engineering**. The degree passes HR screens and
+supports the JSON-LD `alumniOf` claim, so it earns its line. The original included
+a **75%** mark, dropped on 2026-08-03 — a degree percentage is a fresher's signal
+that carries no weight at twelve years and only invites an unwinnable comparison.
+Do not reinstate it.
+
 ### 5 · Experience
 
-Grouped by employer. Each role shows title, dates, duration, location, and a single
-compact line naming the clients served in that role — full project detail lives in
-Selected work, so Experience stays skimmable. Dates and durations in Plex Mono.
-Client names are used openly (confirmed by the subject; they are already public on
-their LinkedIn).
+Grouped by employer. Dates in Plex Mono.
+
+> **The role bullets below are stale — do not implement from them.** They still
+> carry per-role durations, per-role client lines, and "Greater Chennai Area",
+> none of which the page has. `CLAUDE.md` is authoritative. Kept only as a record
+> of the original intake.
+
+**Current shipped format.** The employer line carries type, total tenure, and
+location (`Full-time · 4 Years 10 Months · Chennai, India`). Each role carries a
+title, a **date range with no duration** (`Jun 2024 – Present`), and one note line.
+The range implies the span and the employer line gives the total, so a per-role
+duration only repeated what was already on screen twice.
+
+Roles at one employer sit on a **single continuous left rule** with a lit node each,
+echoing the hero circuit — a promotion is a junction on the same trace, not a new
+trace. `.role + .role` uses `padding-top` rather than `margin-top` to achieve this;
+margin would fall outside the border box and break the rule into stubs. The line
+breaks between employers, which is the distinction worth drawing.
 
 **Ongil.ai** — Full-time, 4 yrs 11 mos
 

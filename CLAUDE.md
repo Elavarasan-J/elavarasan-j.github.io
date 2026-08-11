@@ -105,7 +105,13 @@ That's why the page is black and green rather than because dev portfolios are.
 ## Durations — never hardcode a live one
 
 Every still-running duration carries `data-since="YYYY-MM"` and is recomputed at
-load by `renderDurations()`. Closed roles keep fixed figures in the markup.
+load by `renderDurations()`. Only two remain: the hero tenure (`2014-05`) and the
+Ongil.ai employer line (`2021-09`).
+
+**Individual roles carry a date range and no duration** — `Jun 2024 – Present`, not
+`Jun 2024 – Present · 2 Years 2 Months`. The range already implies the span, the
+employer line above already gives total tenure, and the role's job is to show *when
+the promotion happened*. All five roles follow this; do not add a duration to one.
 
 - Format is **full words**: `12 Years 2 Months`, `2 Years 1 Month`, `5 Years`.
 - Convention is **elapsed** months, not LinkedIn's inclusive count — the page reads
@@ -118,6 +124,13 @@ load by `renderDurations()`. Closed roles keep fixed figures in the markup.
 - **Locations sit on the employer line**, not on individual roles:
   `Full-time · 4 Years 10 Months · Chennai, India`. Always "Chennai, India" — never
   "Greater Chennai Area".
+- **The role trace is continuous within an employer.** `.role` draws a left rule
+  with a lit node per role, echoing the hero circuit — each role is a junction on
+  the same trace. `.role + .role` therefore uses `padding-top`, **not**
+  `margin-top`: margin sits outside the border box and would break the rule into
+  one stub per role, which reads as separate jobs rather than promotions. Roles at
+  different employers aren't siblings, so the line breaks between companies — that
+  break is meaningful, keep it.
 - **No client lines under the Ongil.ai roles.** Clients are named per project in
   Selected work instead. Cleared to name publicly: Vanguard, Capgemini, 3M,
   Xqtiv, Synapse Green, IIT Madras, and Ongil. The last four appear only in the
