@@ -329,33 +329,90 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   margin-bottom: var(--space-3);
 }
 
-/* ---------- pipeline ---------- */
+/* ---------- pipeline: stages as nodes on one trace ----------
+   The same node-on-a-trace idiom as .role in Experience, rotated. Vertical by
+   default, horizontal from 48rem. The stages are a real sequence, so drawing
+   them as one connected run says something true rather than decorating.
+   Rotating at narrow widths also kills the old bug where the inline '→'
+   separators wrapped and left an arrow at line-start pointing at nothing. */
 .pipeline {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3);
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: var(--space-3);
+}
+.pipeline__stages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .pipeline__stage {
+  position: relative;
+  padding-left: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-left: 1px solid var(--line);
   color: var(--muted);
   transition: color .5s ease;
 }
-.pipeline__stage + .pipeline__stage::before {
-  content: '→';
-  margin-right: var(--space-3);
-  color: color-mix(in srgb, var(--paper) 35%, transparent);
+/* The node. Unlit until the build resolves — muted, never red. */
+.pipeline__stage::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0.45em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: background-color .5s ease, box-shadow .5s ease;
 }
 .signature[data-state="pass"] .pipeline__stage { color: var(--paper); }
+.signature[data-state="pass"] .pipeline__stage::before {
+  background: var(--signal);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--signal) 70%, transparent);
+}
 
-/* ---------- state badge ---------- */
+/* ---------- state badge: the terminus of the trace ---------- */
 .state {
-  display: inline-block;
-  margin-top: var(--space-3);
+  position: relative;
+  margin-left: var(--space-3);
   padding: 0.3rem 0.7rem;
   border: 1px solid var(--line);
   color: var(--muted);
   transition: color .4s ease, background-color .4s ease,
               border-color .4s ease, box-shadow .4s ease;
+}
+
+@media (min-width: 48rem) {
+  .pipeline {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .pipeline__stages {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .pipeline__stage {
+    padding-left: var(--space-2);
+    padding-bottom: 0;
+    border-left: 0;
+  }
+  .pipeline__stage::before { top: 50%; transform: translateY(-50%); }
+  /* Connectors span the flex gap, turning the row into one continuous run. */
+  .pipeline__stage:not(:last-child)::after,
+  .state::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: var(--space-3);
+    height: 1px;
+    background: var(--line);
+  }
+  .pipeline__stage:not(:last-child)::after { left: 100%; }
+  .state::before { right: 100%; }
+  .state { margin-left: 0; }
 }
 .state__pass { display: none; }
 .signature[data-state="pass"] .state__pending { display: none; }
@@ -367,15 +424,26 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   box-shadow: 0 0 28px color-mix(in srgb, var(--signal) 55%, transparent);
 }
 
-/* ---------- readout ---------- */
+/* ---------- readout: the payoff ----------
+   This figure is the page's whole argument, and it used to be set at the same
+   13px as a date stamp. It is promoted to --step-2 — the size of the hero
+   thesis line, deliberately: the thesis states the claim, this proves it. Still
+   well below the name, which stays the only thing at --step-4. The struck
+   "1-2 days" beside it stays small; the contrast is what persuades. */
 .readout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  margin-top: var(--space-5);
+}
+.readout__label { color: var(--muted); }
+.readout__delta {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: var(--space-2);
-  margin-top: var(--space-3);
 }
-.readout__label { color: var(--muted); }
 .readout__was {
   color: var(--muted);
   text-decoration: line-through;
@@ -383,12 +451,18 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
 }
 .readout__arrow { color: var(--signal); }
 .readout__now {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  /* The display face is never uppercase; the mono utility group above sets it. */
+  text-transform: none;
   color: var(--signal);
-  font-weight: 500;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pipeline__stage,
+  .pipeline__stage::before,
   .state { transition: none; }
 }
 

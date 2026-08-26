@@ -103,13 +103,36 @@ Anchored to the bottom of the first viewport, glowing upward. This is the one bo
 element on the page; everything below it is quiet.
 
 ```
-design ──▶ structured spec ──▶ component            ✓ PASS
-component build time            1–2 days ▸ 1–2 hours
+HOW THE WORK GETS MADE
+
+●── Design ──● Structured spec ──● Tested component ──▣ PASS
+
+Component build time
+1–2 days ▸ 1–2 hours          ← the figure set large, in the display face
 ```
 
 The three stages are labelled in plain language, not jargon — a business reader
 should understand "design in, tested component out" without reading JSON. The payoff
 is the real measured number from the Agentic UI Builder work.
+
+**The stages are nodes on one continuous trace**, terminating in the state badge.
+The sequence is a real sequence, so drawing it as a connected run states something
+true rather than decorating. The idiom is deliberately the same as `.role` in
+Experience — a promotion and a build stage are both junctions on a shared trace —
+so the hero borrows the page's own language instead of introducing a second one.
+Horizontal from `48rem`, vertical below it, which is `.role` exactly.
+
+An earlier version set the stages inline with `→` glyph separators and stacked the
+badge beneath. It was replaced for two reasons: at 360px the row wrapped and left an
+arrow at line-start pointing at nothing, and the badge floated free of the pipeline
+it is the outcome of, leaving the causal claim undrawn.
+
+**Hierarchy is the point of this section.** Every element here was previously set at
+the same 13px mono, so the page's central argument read in the same voice as a date
+stamp — and `1–2 hours`, the most persuasive fact on the site, was its smallest text.
+The figure now sits at `--step-2` in the display face, matching the hero thesis line:
+the thesis makes the claim, the figure proves it. Everything around it stays quiet,
+so this is the only promoted element in the strip.
 
 ### 3 · Skills
 

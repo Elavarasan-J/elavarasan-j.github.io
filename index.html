@@ -62,20 +62,24 @@
   <div class="signature" data-state="pass">
     <div class="shell">
       <h2 class="signature__label">How the work gets made</h2>
-      <ol class="pipeline">
-        <li class="pipeline__stage">Design</li>
-        <li class="pipeline__stage">Structured spec</li>
-        <li class="pipeline__stage">Tested component</li>
-      </ol>
-      <p class="state">
-        <span class="state__pending">PENDING</span>
-        <span class="state__pass">PASS</span>
-      </p>
+      <div class="pipeline">
+        <ol class="pipeline__stages">
+          <li class="pipeline__stage">Design</li>
+          <li class="pipeline__stage">Structured spec</li>
+          <li class="pipeline__stage">Tested component</li>
+        </ol>
+        <p class="state">
+          <span class="state__pending">Pending</span>
+          <span class="state__pass">Pass</span>
+        </p>
+      </div>
       <p class="readout">
         <span class="readout__label">Component build time</span>
-        <span class="readout__was">1–2 days</span>
-        <span class="readout__arrow" aria-hidden="true">▸</span>
-        <span class="readout__now">1–2 hours</span>
+        <span class="readout__delta">
+          <span class="readout__was">1–2 days</span>
+          <span class="readout__arrow" aria-hidden="true">▸</span>
+          <span class="readout__now">1–2 hours</span>
+        </span>
       </p>
     </div>
   </div>

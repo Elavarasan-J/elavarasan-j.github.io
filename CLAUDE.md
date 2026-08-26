@@ -89,10 +89,25 @@ owner's specialism is test-driven agentic UI generation, so green means verified
 That's why the page is black and green rather than because dev portfolios are.
 
 - `data-state` takes exactly two values: `pending` and `pass`.
-- The failing state is **unlit muted**, not red. Do not add a red.
+- The failing state is **unlit muted**, not red. Do not add a red. This covers the
+  stage labels, their nodes, and the badge — in `pending` all three sit at `--muted`
+  with no glow.
 - The markup ships `data-state="pass"`. JS demotes it to `pending` and replays the
   resolve **only** when motion is welcome. That's what makes no-JS and
   reduced-motion visitors see the finished state for free. Preserve this shape.
+- **The stages are nodes on one continuous trace**, terminating in the state badge —
+  the same idiom as `.role` in Experience, and deliberately so: it ties the hero to
+  the page's other timeline instead of importing a second visual language. Vertical
+  below `48rem`, horizontal above. Do **not** go back to inline `→` glyph separators;
+  they wrapped at 360px and left an arrow at line-start pointing at nothing.
+- **`.readout__now` is the one promoted figure on the page**, set in the display face
+  at `--step-2` — the size of the hero thesis line. The thesis states the claim, this
+  proves it. It stays below the name, which is the only thing at `--step-4`. Its
+  `text-transform: none` is load-bearing: `.readout` inherits uppercase from the mono
+  utility group, and the display face is never uppercase. Keep `1–2 days` small,
+  muted and struck; the size contrast is the whole argument.
+- `main.js` only ever touches `.signature` and its `dataset.state` — never the inner
+  elements. Keep it that way and the strip's markup stays free to change.
 
 ## Motion
 
