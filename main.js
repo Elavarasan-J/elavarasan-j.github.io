@@ -69,7 +69,11 @@
      Orthogonal traces across a coarse grid with data pulses running along them:
      the substrate the components are assembled on. Seeded rather than random,
      so the static (reduced-motion) render is reproducible. Capped, paused when
-     the tab is hidden, pulse-free under reduced motion. */
+     the tab is hidden, pulse-free under reduced motion.
+
+     Alphas were pulled down (traces .22 -> .13, nodes .5 -> .3, pulses
+     .95 -> .8) so the substrate recedes behind the content instead of
+     competing with it, which is what it read as at the old strength. */
   const TRACE_CAP = 16;
   const GRID = 68;          // css px between grid nodes
 
@@ -158,7 +162,7 @@
 
       // traces
       ctx.lineWidth = Math.max(1, dpr);
-      ctx.strokeStyle = 'rgba(0, 226, 74, 0.22)';
+      ctx.strokeStyle = 'rgba(0, 226, 74, 0.13)';
       ctx.lineJoin = 'round';
       for (const tr of traces) {
         ctx.beginPath();
@@ -174,7 +178,7 @@
       for (const tr of traces) {
         for (const [cx, cy] of tr.points) {
           ctx.beginPath();
-          ctx.fillStyle = 'rgba(0, 226, 74, 0.5)';
+          ctx.fillStyle = 'rgba(0, 226, 74, 0.3)';
           ctx.arc(cx * cell, cy * cell, r, 0, Math.PI * 2);
           ctx.fill();
         }
@@ -186,7 +190,7 @@
       for (const tr of traces) {
         const [px, py] = pointAt(tr.points, tr.phase);
         const grad = ctx.createRadialGradient(px, py, 0, px, py, 7 * dpr);
-        grad.addColorStop(0, 'rgba(124, 255, 168, 0.95)');
+        grad.addColorStop(0, 'rgba(124, 255, 168, 0.8)');
         grad.addColorStop(1, 'rgba(124, 255, 168, 0)');
         ctx.beginPath();
         ctx.fillStyle = grad;

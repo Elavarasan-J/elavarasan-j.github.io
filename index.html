@@ -1,323 +1,440 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Elavarasan J — Staff Engineer, Frontend &amp; AI-Driven UI</title>
-<meta name="description" content="Staff Engineer in Chennai, 12+ years in enterprise frontend. Agentic, test-driven UI generation with React, TypeScript, and D3.js. Built for Vanguard and 3M.">
-<meta name="author" content="Elavarasan J">
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#000000">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Elavarasan J — Staff Engineer, Frontend &amp; AI-Driven UI</title>
+    <meta
+      name="description"
+      content="Staff Engineer in Chennai, 12+ years in enterprise frontend. Agentic, test-driven UI generation with React, TypeScript, and D3.js. Built for Vanguard and 3M."
+    />
+    <meta name="author" content="Elavarasan J" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000000" />
 
-<!-- Absolute URLs assume GitHub Pages. Change all six if you move to a custom domain. -->
-<link rel="canonical" href="https://elavarasan-j.github.io/">
+    <!-- Absolute URLs assume GitHub Pages. Change all six if you move to a custom domain. -->
+    <link rel="canonical" href="https://elavarasan-j.github.io/" />
 
-<meta property="og:type" content="profile">
-<meta property="og:site_name" content="Elavarasan J">
-<meta property="og:locale" content="en_IN">
-<meta property="og:title" content="Elavarasan J — Staff Engineer, Frontend &amp; AI-Driven UI">
-<meta property="og:description" content="12+ years in enterprise frontend, specialising in agentic, test-driven UI generation. Built for Vanguard, Capgemini, and 3M.">
-<meta property="og:url" content="https://elavarasan-j.github.io/">
-<meta property="og:image" content="https://elavarasan-j.github.io/elavarasan.jpeg">
-<meta property="og:image:alt" content="Elavarasan J">
-<meta property="profile:first_name" content="Elavarasan">
-<meta property="profile:last_name" content="J">
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Elavarasan J" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="Elavarasan J — Staff Engineer, Frontend &amp; AI-Driven UI" />
+    <meta
+      property="og:description"
+      content="12+ years in enterprise frontend, specialising in agentic, test-driven UI generation. Built for Vanguard, Capgemini, and 3M."
+    />
+    <meta property="og:url" content="https://elavarasan-j.github.io/" />
+    <meta property="og:image" content="https://elavarasan-j.github.io/elavarasan.jpeg" />
+    <meta property="og:image:alt" content="Elavarasan J" />
+    <meta property="profile:first_name" content="Elavarasan" />
+    <meta property="profile:last_name" content="J" />
 
-<!-- summary, not summary_large_image: the headshot is 200x200 and would be cropped badly. -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elavarasan J — Staff Engineer, Frontend &amp; AI-Driven UI">
-<meta name="twitter:description" content="12+ years in enterprise frontend, specialising in agentic, test-driven UI generation.">
-<meta name="twitter:image" content="https://elavarasan-j.github.io/elavarasan.jpeg">
+    <!-- summary, not summary_large_image: the headshot is 200x200 and would be cropped badly. -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Elavarasan J — Staff Engineer, Frontend &amp; AI-Driven UI" />
+    <meta
+      name="twitter:description"
+      content="12+ years in enterprise frontend, specialising in agentic, test-driven UI generation."
+    />
+    <meta name="twitter:image" content="https://elavarasan-j.github.io/elavarasan.jpeg" />
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Cpath d='M5 23h9l6-13h7' stroke='%2300E24A' stroke-width='3' fill='none'/%3E%3Ccircle cx='14' cy='23' r='3.2' fill='%237CFFA8'/%3E%3C/svg%3E">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Cpath d='M5 23h9l6-13h7' stroke='%2300E24A' stroke-width='3' fill='none'/%3E%3Ccircle cx='14' cy='23' r='3.2' fill='%237CFFA8'/%3E%3C/svg%3E"
+    />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
 
-<a class="skip" href="#main">Skip to content</a>
+    <header class="hero">
+      <canvas id="circuit" class="circuit" aria-hidden="true"></canvas>
 
-<header class="hero">
-  <canvas id="circuit" class="circuit" aria-hidden="true"></canvas>
-
-  <div class="hero__top shell">
-    <span class="hero__avatar">
-      <img class="hero__portrait" src="elavarasan.jpeg" width="200" height="200"
-           alt="Elavarasan J">
-    </span>
-    <p class="hero__meta">Staff Engineer · <span id="tenure" data-since="2014-05">12 Years 2 Months</span> · Chennai, India</p>
-    <h1 class="hero__name">Elavarasan J</h1>
-    <p class="hero__thesis">I build the systems that build interfaces.</p>
-    <nav class="hero__actions" aria-label="Contact and résumé">
-      <a href="mailto:elavarasan.infotech10@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">GitHub</a>
-      <a href="Elavarasan_Resume_2026.pdf" download>Download résumé</a>
-    </nav>
-  </div>
-
-  <div class="signature" data-state="pass">
-    <div class="shell">
-      <h2 class="signature__label">How the work gets made</h2>
-      <div class="pipeline">
-        <ol class="pipeline__stages">
-          <li class="pipeline__stage">Design</li>
-          <li class="pipeline__stage">Structured spec</li>
-          <li class="pipeline__stage">Tested component</li>
-        </ol>
-        <p class="state">
-          <span class="state__pending">Pending</span>
-          <span class="state__pass">Pass</span>
-        </p>
-      </div>
-      <p class="readout">
-        <span class="readout__label">Component build time</span>
-        <span class="readout__delta">
-          <span class="readout__was">1–2 days</span>
-          <span class="readout__arrow" aria-hidden="true">▸</span>
-          <span class="readout__now">1–2 hours</span>
+      <div class="hero__top shell">
+        <span class="hero__avatar">
+          <img class="hero__portrait" src="elavarasan.jpeg" width="200" height="200" alt="Elavarasan J" />
         </span>
-      </p>
-    </div>
-  </div>
-</header>
+        <p class="hero__meta">
+          Staff Engineer ·
+          <span id="tenure" data-since="2014-05">12 Years 3 Months</span>
+          · Chennai, India
+        </p>
+        <h1 class="hero__name">Elavarasan J</h1>
+        <p class="hero__thesis">I build the systems that build interfaces.</p>
+        <nav class="hero__actions" aria-label="Contact and résumé">
+          <a href="mailto:elavarasan.infotech10@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">GitHub</a>
+          <a class="cta" href="Elavarasan_Resume_2026.pdf" download>Download résumé</a>
+        </nav>
+      </div>
 
-<main id="main">
+      <div class="signature" data-state="pass">
+        <div class="shell">
+          <h2 class="signature__label">How the work gets made</h2>
+          <div class="pipeline">
+            <ol class="pipeline__stages">
+              <li class="pipeline__stage">Design</li>
+              <li class="pipeline__stage">Structured spec</li>
+              <li class="pipeline__stage">Tested component</li>
+            </ol>
+            <p class="state">
+              <span class="state__pending">Pending</span>
+              <span class="state__pass">Pass</span>
+            </p>
+          </div>
+          <p class="readout">
+            <span class="readout__label">Component build time</span>
+            <span class="readout__delta">
+              <span class="readout__was">1–2 days</span>
+              <span class="readout__arrow" aria-hidden="true">▸</span>
+              <span class="readout__now">1–2 hours</span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </header>
 
-  <section class="section" aria-labelledby="skills-h">
-    <div class="shell">
-      <h2 class="section__head" id="skills-h">Skills</h2>
-      <div class="skills">
-        <ul class="skills__top">
-          <li>Agentic AI</li>
-          <li>React.js</li>
-          <li>TypeScript</li>
-          <li>Test-driven development</li>
-          <li>Mentoring</li>
+    <main id="main">
+      <section class="section" aria-labelledby="skills-h">
+        <div class="shell">
+          <h2 class="section__head" id="skills-h">Skills</h2>
+          <div class="skills">
+            <ul class="skills__top">
+              <li>Agentic AI</li>
+              <li>React.js</li>
+              <li>TypeScript</li>
+              <li>Test-driven development</li>
+              <li>Mentoring</li>
+            </ul>
+            <dl class="skills__groups">
+              <div class="skills__group">
+                <dt>Frontend</dt>
+                <dd>
+                  <ul class="chips">
+                    <li>JavaScript (ES6+)</li>
+                    <li>Next.js</li>
+                    <li>Angular</li>
+                    <li>StencilJS</li>
+                    <li>Redux</li>
+                    <li>Zustand</li>
+                    <li>Micro-frontends</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="skills__group">
+                <dt>UI &amp; visualisation</dt>
+                <dd>
+                  <ul class="chips">
+                    <li>Tailwind CSS</li>
+                    <li>Material UI</li>
+                    <li>shadcn/ui</li>
+                    <li>D3.js</li>
+                    <li>Highcharts</li>
+                    <li>Figma</li>
+                    <li>Accessibility (WCAG 2.1)</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="skills__group">
+                <dt>AI &amp; agentic</dt>
+                <dd>
+                  <ul class="chips">
+                    <li>Agentic UI generation</li>
+                    <li>LLM integration</li>
+                    <li>Claude Code</li>
+                    <li>GitHub Copilot</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="skills__group">
+                <dt>Engineering practice</dt>
+                <dd>
+                  <ul class="chips">
+                    <li>Docker</li>
+                    <li>CI/CD</li>
+                    <li>System architecture</li>
+                    <li>API design</li>
+                    <li>REST</li>
+                    <li>GraphQL</li>
+                    <li>Jest</li>
+                    <li>Vitest</li>
+                    <li>Code review</li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="about-h">
+        <div class="shell">
+          <h2 class="section__head" id="about-h">About</h2>
+          <div class="prose">
+            <p>
+              Building scalable web applications and AI-driven interfaces since 2014, with React, TypeScript, and
+              visualisation libraries like D3.js.
+            </p>
+            <p>
+              The specialism is agentic, AI-driven development. It accelerates delivery, raises code quality, and cuts
+              rework across complex UI systems.
+            </p>
+            <p class="pull">
+              Workflows that turn structured inputs into production-ready frontend components, held to a test-driven
+              standard.
+            </p>
+            <p>
+              The work spans AI-powered dashboards, conversational interfaces, dynamic data visualisation, and reusable
+              component architecture — with a consistent focus on clean code, performance, and maintainability.
+            </p>
+            <p>
+              Currently finishing Xyden, an adaptive leadership maturity assessment platform for senior executives — a
+              six-month scope delivered in two through an agentic UI pipeline.
+            </p>
+          </div>
+          <p class="education">Education · B.Tech, Information Technology · Arunai College of Engineering</p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="exp-h">
+        <div class="shell">
+          <h2 class="section__head" id="exp-h">Experience</h2>
+
+          <div class="employer">
+            <h3 class="employer__name">
+              Ongil.ai
+              <span class="employer__flag">Present</span>
+            </h3>
+            <p class="employer__meta">
+              Full-time ·
+              <span data-since="2021-09">4 Years 11 Months</span>
+              · Chennai, India
+            </p>
+            <div class="role">
+              <p class="role__title">Associate Staff Engineer</p>
+              <p class="role__meta">Jun 2024 – Present</p>
+              <p class="role__note">
+                Builds agentic UI generation tooling and modernises enterprise micro-frontend applications, working
+                test-first.
+              </p>
+            </div>
+            <div class="role">
+              <p class="role__title">Senior Software Engineer</p>
+              <p class="role__meta">Sep 2021 – Jun 2024</p>
+              <p class="role__note">
+                Trained interns, led structured code reviews, and established coding guidelines — improving team code
+                quality and accelerating onboarding.
+              </p>
+            </div>
+          </div>
+
+          <div class="employer">
+            <h3 class="employer__name">Gtect Systems</h3>
+            <p class="employer__meta">Full-time · 5 Years · Chennai, India</p>
+            <div class="role">
+              <p class="role__title">Senior UI Developer</p>
+              <p class="role__meta">Aug 2019 – Aug 2021</p>
+              <p class="role__note">
+                Gathered requirements with business analysts and developed use cases for key functionality.
+              </p>
+            </div>
+            <div class="role">
+              <p class="role__title">UI Developer</p>
+              <p class="role__meta">Aug 2016 – Aug 2019</p>
+              <p class="role__note">
+                Built mobile-first responsive websites with HTML, CSS, jQuery, and Bootstrap, with cross-browser
+                compatibility.
+              </p>
+            </div>
+          </div>
+
+          <div class="employer">
+            <h3 class="employer__name">Asareri Technologies</h3>
+            <p class="employer__meta">2 Years 2 Months · Chennai, India</p>
+            <div class="role">
+              <p class="role__title">UI Developer</p>
+              <p class="role__meta">May 2014 – Jul 2016</p>
+              <p class="role__note">
+                Built mobile-first responsive websites and converted PSD designs into pixel-perfect HTML and CSS.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="work-h">
+        <div class="shell">
+          <h2 class="section__head" id="work-h">Selected work</h2>
+
+          <article class="work">
+            <h3 class="work__name">Agentic UI Builder</h3>
+            <p class="work__client">Vanguard</p>
+            <p class="work__desc">
+              Contributed to an agentic UI generation workflow that produces production-ready components from structured
+              inputs through a test-driven approach.
+            </p>
+            <p class="work__stack">React · Zustand · shadcn/ui · AWS Bedrock</p>
+            <p class="work__outcome">Cut component development time from 1–2 days to 1–2 hours.</p>
+          </article>
+
+          <article class="work">
+            <h3 class="work__name">Wealth Advisor Dashboard with Copilot</h3>
+            <p class="work__client">Capgemini</p>
+            <p class="work__desc">
+              Dual-mode dashboard with an AI copilot for consumers and advisors, covering portfolio analysis, risk
+              visualisation, and appointment scheduling.
+            </p>
+            <p class="work__stack">React · Redux · Material UI · WebSocket</p>
+            <p class="work__outcome">
+              Improved investor decision-making and streamlined advisor consultations through personalised, AI-driven
+              insight.
+            </p>
+          </article>
+
+          <article class="work">
+            <h3 class="work__name">Data Analytics Dashboards</h3>
+            <p class="work__client">3M</p>
+            <p class="work__desc">
+              High-performance interactive dashboards turning complex datasets into actionable business insight through
+              advanced charting.
+            </p>
+            <p class="work__stack">React · Material UI · D3.js · Highcharts</p>
+            <p class="work__outcome">
+              Enabled data-driven decisions by transforming raw data into meaningful visualisations.
+            </p>
+          </article>
+
+          <p class="work__more">
+            <a href="Elavarasan_Projects_2026.pdf" download>Download the full project list · PDF</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="section award" aria-labelledby="award-h">
+        <div class="shell">
+          <h2 class="section__head" id="award-h">Recognition</h2>
+          <figure class="award__figure">
+            <img
+              src="hoc.jpeg"
+              width="1280"
+              height="904"
+              loading="lazy"
+              alt="Hall of Fame certificate for craftpersonship and collaboration, awarded to Elavarasan J by Ongil.ai"
+            />
+            <figcaption>
+              <p class="award__title">Hall of Fame for Craftpersonship and Collaboration</p>
+              <p class="award__org">Ongil.ai</p>
+              <blockquote class="award__citation">
+                <p>
+                  Given for his technical excellence and resilience in handling a complex integration effort spanning
+                  several hours without break, collaborating with a team of engineers across Ongil and CapGemini.
+                </p>
+              </blockquote>
+              <p class="award__signatories">Ajith Sahasranamam, CEO, Ongil.ai · Srinivasan Rengarajan, CTO, Ongil.ai</p>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer class="section contact" aria-labelledby="contact-h">
+      <div class="shell">
+        <h2 class="section__head" id="contact-h">Contact</h2>
+        <p class="contact__status"><span class="contact__flag">Open to collaboration</span></p>
+        <p class="contact__availability">
+          I work on frontend architecture, scalable UI platforms, and AI-integrated product experiences.
+        </p>
+        <ul class="contact__list">
+          <li>
+            <span class="contact__key">Email</span>
+            <a href="mailto:elavarasan.infotech10@gmail.com">elavarasan.infotech10@gmail.com</a>
+          </li>
+          <li>
+            <span class="contact__key">Phone</span>
+            <a href="tel:+918015515823">+91 8015515823</a>
+          </li>
+          <li>
+            <span class="contact__key">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">
+              linkedin.com/in/elavarasanj
+            </a>
+          </li>
+          <li>
+            <span class="contact__key">GitHub</span>
+            <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">github.com/Elavarasan-J</a>
+          </li>
+          <li>
+            <span class="contact__key">Résumé</span>
+            <a href="Elavarasan_Resume_2026.pdf" download>Download PDF · 2 MB</a>
+          </li>
         </ul>
-        <dl class="skills__groups">
-          <div class="skills__group">
-            <dt>Frontend</dt>
-            <dd>
-              <ul class="chips">
-                <li>JavaScript (ES6+)</li><li>React</li><li>Angular</li>
-                <li>StencilJS</li><li>Redux</li><li>Zustand</li>
-                <li>Micro-frontends</li>
-              </ul>
-            </dd>
-          </div>
-          <div class="skills__group">
-            <dt>UI &amp; visualisation</dt>
-            <dd>
-              <ul class="chips">
-                <li>Tailwind CSS</li><li>Material UI</li><li>shadcn/ui</li>
-                <li>D3.js</li><li>Highcharts</li><li>Figma</li>
-              </ul>
-            </dd>
-          </div>
-          <div class="skills__group">
-            <dt>AI &amp; agentic</dt>
-            <dd>
-              <ul class="chips">
-                <li>Agentic UI generation</li><li>Claude Code</li>
-                <li>GitHub Copilot</li>
-              </ul>
-            </dd>
-          </div>
-          <div class="skills__group">
-            <dt>Engineering practice</dt>
-            <dd>
-              <ul class="chips">
-                <li>Docker</li><li>CI/CD</li>
-                <li>System architecture</li><li>Code review</li>
-              </ul>
-            </dd>
-          </div>
-        </dl>
+        <p class="contact__cta"><a class="cta" href="mailto:elavarasan.infotech10@gmail.com">Send an email</a></p>
       </div>
-    </div>
-  </section>
+    </footer>
 
-  <section class="section" aria-labelledby="about-h">
-    <div class="shell">
-      <h2 class="section__head" id="about-h">About</h2>
-      <div class="prose">
-        <p>Building scalable web applications and AI-driven interfaces since 2014, with React, TypeScript, and visualisation libraries like D3.js.</p>
-        <p>The specialism is agentic, AI-driven development: workflows that turn structured inputs into production-ready frontend components, held to a test-driven standard. It accelerates delivery, raises code quality, and cuts rework across complex UI systems.</p>
-        <p>The work spans AI-powered dashboards, conversational interfaces, dynamic data visualisation, and reusable component architecture — with a consistent focus on clean code, performance, and maintainability.</p>
-        <p>Currently finishing Xyden, an adaptive leadership maturity assessment platform for senior executives — a six-month scope delivered in two through an agentic UI pipeline.</p>
-      </div>
-      <p class="education">Education · B.Tech, Information Technology · Arunai College of Engineering</p>
-    </div>
-  </section>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Elavarasan J",
+        "givenName": "Elavarasan",
+        "jobTitle": "Staff Engineer",
+        "description": "Staff Engineer specialising in agentic, test-driven frontend delivery — AI-powered dashboards, conversational interfaces, data visualisation, and reusable component architecture.",
+        "url": "https://elavarasan-j.github.io/",
+        "image": "https://elavarasan-j.github.io/elavarasan.jpeg",
+        "email": "mailto:elavarasan.infotech10@gmail.com",
+        "telephone": "+91-8015515823",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "addressCountry": "IN"
+        },
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Ongil.ai"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Arunai College of Engineering"
+        },
+        "knowsAbout": [
+          "Frontend architecture",
+          "Agentic AI",
+          "Test-driven development",
+          "Jest",
+          "Vitest",
+          "React",
+          "Next.js",
+          "TypeScript",
+          "JavaScript",
+          "StencilJS",
+          "Redux",
+          "Zustand",
+          "D3.js",
+          "Data visualisation",
+          "Micro-frontends",
+          "Web accessibility",
+          "API design",
+          "REST",
+          "GraphQL",
+          "Large language model integration",
+          "AWS Bedrock",
+          "Angular",
+          "Docker"
+        ],
+        "sameAs": ["https://www.linkedin.com/in/elavarasanj/", "https://github.com/Elavarasan-J"]
+      }
+    </script>
 
-  <section class="section" aria-labelledby="exp-h">
-    <div class="shell">
-      <h2 class="section__head" id="exp-h">Experience</h2>
-
-      <div class="employer">
-        <h3 class="employer__name">Ongil.ai <span class="employer__flag">Present</span></h3>
-        <p class="employer__meta">Full-time · <span data-since="2021-09">4 Years 10 Months</span> · Chennai, India</p>
-        <div class="role">
-          <p class="role__title">Associate Staff Engineer</p>
-          <p class="role__meta">Jun 2024 – Present</p>
-          <p class="role__note">Builds agentic UI generation tooling and modernises enterprise micro-frontend applications, working test-first.</p>
-        </div>
-        <div class="role">
-          <p class="role__title">Senior Software Engineer</p>
-          <p class="role__meta">Sep 2021 – Jun 2024</p>
-          <p class="role__note">Trained interns, led structured code reviews, and established coding guidelines — improving team code quality and accelerating onboarding.</p>
-        </div>
-      </div>
-
-      <div class="employer">
-        <h3 class="employer__name">Gtect Systems</h3>
-        <p class="employer__meta">Full-time · 5 Years · Chennai, India</p>
-        <div class="role">
-          <p class="role__title">Senior UI Developer</p>
-          <p class="role__meta">Aug 2019 – Aug 2021</p>
-          <p class="role__note">Gathered requirements with business analysts and developed use cases for key functionality.</p>
-        </div>
-        <div class="role">
-          <p class="role__title">UI Developer</p>
-          <p class="role__meta">Aug 2016 – Aug 2019</p>
-          <p class="role__note">Built mobile-first responsive websites with HTML, CSS, jQuery, and Bootstrap, with cross-browser compatibility.</p>
-        </div>
-      </div>
-
-      <div class="employer">
-        <h3 class="employer__name">Asareri Technologies</h3>
-        <p class="employer__meta">2 Years 2 Months · Chennai, India</p>
-        <div class="role">
-          <p class="role__title">UI Developer</p>
-          <p class="role__meta">May 2014 – Jul 2016</p>
-          <p class="role__note">Built mobile-first responsive websites and converted PSD designs into pixel-perfect HTML and CSS.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="work-h">
-    <div class="shell">
-      <h2 class="section__head" id="work-h">Selected work</h2>
-
-      <article class="work">
-        <h3 class="work__name">Agentic UI Builder</h3>
-        <p class="work__client">Vanguard</p>
-        <p class="work__desc">Contributed to an agentic UI generation workflow that produces production-ready components from structured inputs through a test-driven approach.</p>
-        <p class="work__stack">React · Zustand · shadcn/ui · AWS Bedrock</p>
-        <p class="work__outcome">Cut component development time from 1–2 days to 1–2 hours.</p>
-      </article>
-
-      <article class="work">
-        <h3 class="work__name">Wealth Advisor Dashboard with Copilot</h3>
-        <p class="work__client">Capgemini</p>
-        <p class="work__desc">Dual-mode dashboard with an AI copilot for consumers and advisors, covering portfolio analysis, risk visualisation, and appointment scheduling.</p>
-        <p class="work__stack">React · Redux · Material UI · WebSocket</p>
-        <p class="work__outcome">Improved investor decision-making and streamlined advisor consultations through personalised, AI-driven insight.</p>
-      </article>
-
-      <article class="work">
-        <h3 class="work__name">Data Analytics Dashboards</h3>
-        <p class="work__client">3M</p>
-        <p class="work__desc">High-performance interactive dashboards turning complex datasets into actionable business insight through advanced charting.</p>
-        <p class="work__stack">React · Material UI · D3.js · Highcharts</p>
-        <p class="work__outcome">Enabled data-driven decisions by transforming raw data into meaningful visualisations.</p>
-      </article>
-
-      <p class="work__more"><a href="Elavarasan_Projects_2026.pdf" download>Download the full project list · PDF</a></p>
-
-    </div>
-  </section>
-
-  <section class="section award" aria-labelledby="award-h">
-    <div class="shell">
-      <h2 class="section__head" id="award-h">Recognition</h2>
-      <figure class="award__figure">
-        <img src="hoc.jpeg" width="1280" height="904" loading="lazy"
-             alt="Hall of Fame certificate for craftpersonship and collaboration, awarded to Elavarasan J by Ongil.ai">
-        <figcaption>
-          <p class="award__title">Hall of Fame for Craftpersonship and Collaboration</p>
-          <p class="award__org">Ongil.ai</p>
-          <blockquote class="award__citation">
-            <p>Given for his technical excellence and resilience in handling a complex integration effort spanning several hours without break, collaborating with a team of engineers across Ongil and CapGemini.</p>
-          </blockquote>
-          <p class="award__signatories">Ajith Sahasranamam, CEO, Ongil.ai · Srinivasan Rengarajan, CTO, Ongil.ai</p>
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-</main>
-
-<footer class="section contact" aria-labelledby="contact-h">
-  <div class="shell">
-    <h2 class="section__head" id="contact-h">Contact</h2>
-    <p class="contact__availability">Open to collaborating on frontend architecture, scalable UI platforms, and AI-integrated product experiences.</p>
-    <ul class="contact__list">
-      <li><span class="contact__key">Email</span> <a href="mailto:elavarasan.infotech10@gmail.com">elavarasan.infotech10@gmail.com</a></li>
-      <li><span class="contact__key">Phone</span> <a href="tel:+918015515823">+91 8015515823</a></li>
-      <li><span class="contact__key">LinkedIn</span> <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">linkedin.com/in/elavarasanj</a></li>
-      <li><span class="contact__key">GitHub</span> <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">github.com/Elavarasan-J</a></li>
-      <li><span class="contact__key">Résumé</span> <a href="Elavarasan_Resume_2026.pdf" download>Download PDF · 2 MB</a></li>
-    </ul>
-  </div>
-</footer>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Elavarasan J",
-  "givenName": "Elavarasan",
-  "jobTitle": "Staff Engineer",
-  "description": "Staff Engineer specialising in agentic, test-driven frontend delivery — AI-powered dashboards, conversational interfaces, data visualisation, and reusable component architecture.",
-  "url": "https://elavarasan-j.github.io/",
-  "image": "https://elavarasan-j.github.io/elavarasan.jpeg",
-  "email": "mailto:elavarasan.infotech10@gmail.com",
-  "telephone": "+91-8015515823",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Chennai",
-    "addressRegion": "Tamil Nadu",
-    "addressCountry": "IN"
-  },
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Ongil.ai"
-  },
-  "alumniOf": {
-    "@type": "CollegeOrUniversity",
-    "name": "Arunai College of Engineering"
-  },
-  "knowsAbout": [
-    "Frontend architecture",
-    "Agentic AI",
-    "Test-driven development",
-    "React",
-    "TypeScript",
-    "JavaScript",
-    "StencilJS",
-    "Redux",
-    "Zustand",
-    "D3.js",
-    "Data visualisation",
-    "Micro-frontends",
-    "AWS Bedrock",
-    "Angular",
-    "Docker"
-  ],
-  "sameAs": [
-    "https://www.linkedin.com/in/elavarasanj/",
-    "https://github.com/Elavarasan-J"
-  ]
-}
-</script>
-
-<script src="main.js"></script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>

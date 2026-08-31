@@ -43,7 +43,8 @@ because developer portfolios are dark.
 |---|---|---|
 | `--void` | `#000000` | Page ground. True black, per the reference image. |
 | `--moss` | `#0A2A16` | Deep green mid-tone of the glow gradient. |
-| `--signal` | `#00E24A` | Luminous green. Filaments, pass state, links, structural accents. |
+| `--signal` | `#00E24A` | Luminous green, bright tier. Pass state, `.cta`, top skill pills, client names, key figures. |
+| `--signal-dim` | `#00A335` | Same hue at 72% on void. Structural tier: section heads, group labels, `.contact__key`. Added 2026-08-26 — see `CLAUDE.md`. |
 | `--glow` | `#7CFFA8` | White-hot core of the light. Focus rings. |
 | `--paper` | `#EAF3EC` | Body text. |
 | `--muted` | `#8FA396` | Secondary text, dates, meta. |
@@ -54,6 +55,10 @@ because developer portfolios are dark.
 - Body prose is always `--paper`, never green. Green text on black is fatiguing and
   the About section is meant to be read.
 - `--glow` is reserved for the signature moment and focus rings. Nowhere else.
+- Green runs at **two intensities and never three**. Bright is state, claims and
+  figures; dim is structure and labels. Before the split every green on the page sat
+  at one value, so nothing read as *the* signal — which was the 2026-08 design
+  review's sharpest point.
 - `--brass` appears only in the Recognition section, because `hoc.jpeg` is a
   cream-and-gold certificate and needs one warm note to not read as pasted in.
 - Glow effects must never sit behind running prose. Reading areas stay flat black.
@@ -164,15 +169,41 @@ Three more chips came out later at the owner's request:
   markup, since none of the three remaining works lists it in a stack. Testing is
   carried entirely by the `Test-driven development` featured badge now — which was
   always the stronger claim, the tool being the lesser half of it.
+  **Reversed 2026-08-27:** `Jest` and `Vitest` are both back in Engineering
+  practice, at the owner's request. The removal left the page's central claim —
+  test-driven agentic UI generation — with no tool named anywhere on it, so a
+  reader filtering on either name got no match on the one page built to make that
+  claim. The badge is still the stronger half; it is no longer the only half.
 
 Dropped on the rule above, across both passes: VS Code, FileZilla, npm/Yarn, JIRA,
 Photoshop, WordPress, Bootstrap, Cross-browser, HTML, CSS, Python, WebSocket, Git,
 Vite, Nginx, Postman, Agile, Cross-functional collaboration.
 
+A third pass on 2026-08-27 read the owner's full résumé skill list back against the
+page. Everything on it was already here, already on a drop list above, or already
+carried by a stack line — except two. `LLM integration` was added: it is a distinct
+capability from `Agentic UI generation` (wiring models into a product versus
+generating the interface), and AI & agentic was the thinnest group on the page while
+being the one closest to the positioning. `Prompt engineering` was not added — it
+sits beneath both `Agentic AI` and `Agentic UI generation` and dilutes them.
+`Jest` and `Vitest` followed on the owner's call (see the reversal note above);
+`Vitest` is new to the page and did not appear on either earlier list.
+
+That pass also added, on request: `Accessibility (WCAG 2.1)` to UI & visualisation,
+and `API design` · `REST` · `GraphQL` to Engineering practice, kept adjacent so they
+read as one competence. The drop list above still stands — do not repopulate it from
+the résumé, which is a longer document with a different job.
+
+**JSON-LD `knowsAbout` tracks the page, and drifted behind it during this pass.**
+It is now resynced. If you add or remove a chip, update it in the same edit — an
+entry that contradicts the visible page is worse than an absent one.
+
 Dropped specifically as duplicates of the featured badges: **TypeScript**,
-**Mentoring**, and **Agentic development**. Nothing in the groups now repeats a
-badge — the one exception is `React`, which appears as `React.js` in the badges and
-`React` in Frontend, kept because the group reads oddly without it.
+**Mentoring**, and **Agentic development**. `React` was the last remaining
+exception — kept in Frontend because the group read oddly without it — and it went
+on 2026-08-26 when the design review flagged the top row as duplicating the grid.
+Nothing in the groups repeats a badge now. `Agentic UI generation` stays: it is a
+narrower claim than the `Agentic AI` badge, not a restatement of it.
 
 Data visualisation no longer stands alone. Its two chips (D3.js, Highcharts) moved
 into UI & visualisation; the 3M signal survives in Selected work, which names the
@@ -358,8 +389,8 @@ count and stops animating when the tab is hidden or reduced motion is requested.
 - Responsive to 360px with no horizontal scroll at any width.
 - Keyboard focus visible everywhere, ringed in `--glow`.
 - `prefers-reduced-motion: reduce` fully honoured.
-- Body text contrast at least 7:1 against `--void`; `--signal` used for text only at
-  large sizes where it clears 4.5:1.
+- Body text contrast at least 7:1 against `--void` (measures 18.53:1). Green text
+  clears AA at every size it is used: `--signal` 11.98:1, `--signal-dim` 6.29:1.
 - One `h1`, ordered headings, real landmarks, meaningful alt text.
 - Phone and email as `tel:` and `mailto:` links.
 
