@@ -43,7 +43,13 @@
   /* ---------- signature: the passing build ----------
      The HTML ships data-state="pass" so no-JS and reduced-motion visitors get
      the finished state. Only when motion is welcome do we demote to pending
-     and replay the resolve. */
+     and replay the resolve.
+
+     The strip moved out of the hero and into About on 2026-08-31, which put it
+     below the fold: replaying at load would spend the page's one orchestrated
+     moment on an empty screen. So the replay waits until the strip is actually
+     in view. Without IntersectionObserver it fires at load as before — a
+     resolve nobody saw beats a strip stuck on pending. */
   const RESOLVE_DELAY_MS = 900;
 
   function shouldAnimate(prefersReduced) {
@@ -59,8 +65,23 @@
     if (!sig) return;
     if (!shouldAnimate(prefersReducedMotion())) return;   // already "pass"
 
-    sig.dataset.state = 'pending';
-    window.setTimeout(() => { sig.dataset.state = 'pass'; }, RESOLVE_DELAY_MS);
+    /* Only ever .signature and its dataset.state — the inner markup stays free
+       to change without touching this file. */
+    function resolve() {
+      sig.dataset.state = 'pending';
+      window.setTimeout(() => { sig.dataset.state = 'pass'; }, RESOLVE_DELAY_MS);
+    }
+
+    if (!('IntersectionObserver' in window)) { resolve(); return; }
+
+    const io = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        io.disconnect();
+        resolve();
+      }
+    }, { rootMargin: '0px 0px -15% 0px' });
+    io.observe(sig);
   }
 
   playSignature();

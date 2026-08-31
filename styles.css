@@ -70,20 +70,8 @@ body {
 }
 .prose p + p { margin-top: var(--space-3); }
 
-/* One pull-quote breaks four paragraphs of body text into two textures. It
-   stays in the reading serif rather than switching face: this is the owner's
-   own sentence promoted out of the paragraph above, not a quotation. */
-.prose .pull {
-  /* 46ch at --step-2 measured *wider* than the 62ch prose at --step-0, which
-     put the quote outside the reading column instead of inside it. */
-  max-width: 38ch;
-  margin-top: var(--space-4);
-  padding-left: var(--space-3);
-  border-left: 1px solid var(--line);
-  font-size: var(--step-2);
-  line-height: 1.35;
-}
-.prose .pull + p { margin-top: var(--space-4); }
+/* About's pull-quote is gone: it said in words what the process visual now
+   shows, and the two together was the same claim twice. */
 
 /* Display face: Space Grotesk, set mixed-case. Its drawing is technical without
    being a coding font, which suits the subject better than shouted capitals. */
@@ -127,6 +115,7 @@ body {
 .contact__cta,
 .education,
 .skills__groups dt,
+.skills__aside-head,
 .chips,
 .award__org,
 .award__signatories,
@@ -139,9 +128,11 @@ body {
 }
 
 /* ---------- rhythm: this rule is the sole owner of section padding ---------- */
+/* No rule between sections — removed 2026-08-31 on the owner's call: a full-bleed
+   hairline every screen read as hard, and at --space-6 top and bottom there is
+   already 12rem of quiet between one section and the next doing that job. */
 .section {
   padding-block: var(--space-6);
-  border-top: 1px solid var(--line);
 }
 .shell {
   width: 100%;
@@ -172,6 +163,39 @@ body {
   .section > .shell > *:not(.section__head) { grid-column: 2; }
 }
 
+/* ---------- icons ----------
+   One sprite, referenced with <use>. Line icons on a 24 grid: stroke, never
+   fill, so they carry the same hairline weight as every rule on the page and
+   inherit the colour of the text beside them.
+
+   Sized in em and aligned with vertical-align rather than flex, deliberately:
+   these sit inside links whose text has to stay wrappable, and an inline-flex
+   link would refuse to break — the email address is 31 characters and does
+   break at 375px. The reset sets svg to display:block, so this has to say
+   inline-block.
+
+   Every reference in the markup is aria-hidden and keeps its text label, so
+   nothing here is the only way to know what a control does. */
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icon {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.22em;
+  margin-right: 0.45em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* ---------- links ---------- */
 a {
   color: var(--paper);
@@ -180,6 +204,46 @@ a {
   transition: color .18s ease, border-color .18s ease;
 }
 a:hover { color: var(--signal); border-bottom-color: var(--signal); }
+
+/* ---------- scrollbar ----------
+   The browser default is a light-grey slab down the edge of a black page, and
+   it was the one piece of chrome the palette did not reach. Thumb is the
+   structural tier, track is the ground, so it reads as part of the page rather
+   than the window around it.
+
+   Firefox takes the two-value standard property; WebKit and Blink still need
+   the pseudo-elements, so both are declared. The transparent border on the
+   thumb is what insets it from the track — WebKit has no padding here, and the
+   background-clip keeps the border from painting over it. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--signal) 38%, var(--void)) var(--void);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--signal) 38%, var(--void));
+  border: 2px solid var(--void);
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--signal-dim);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--void);
+}
 
 /* ---------- focus: the only other place --glow appears ---------- */
 :focus-visible {
@@ -202,15 +266,18 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
 .skip:focus { left: var(--space-2); top: var(--space-2); }
 
 /* ---------- hero ---------- */
+/* Centred, not top-anchored: the signature strip moved to About, so the intro
+   is the only thing in this screen and space-between had nothing to push
+   against. min-height, not height — on a short viewport the box grows and the
+   content stays whole rather than getting clipped by the overflow below. */
 .hero {
   position: relative;
   isolation: isolate;
-  min-height: 90svh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-top: var(--space-5);
+  justify-content: center;
+  padding-block: var(--space-5);
   overflow: clip;
 }
 
@@ -267,16 +334,31 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   color: var(--paper);
 }
 
+/* The resume is the one action with a job to do, so it takes the button and
+   the other three stay quiet text links. Four equal buttons would flatten the
+   row into a nav bar and say nothing about which one matters.
+
+   Two rows rather than one since 2026-08-31: on its own line the button stops
+   reading as the fourth item in a list of links, and the hero picks up the
+   height it was short of once the signature strip left.
+
+   The button leads and the three channels sit under it — reordered in the
+   markup, not with flex `order`, so the keyboard and the screen reader meet the
+   primary action first too. The gap between them is --space-4 rather than the
+   --space-3 inside the channel row, so the two rows read as two groups. */
 .hero__actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
   margin-top: var(--space-4);
 }
-/* The résumé is the one action with a job to do, so it takes the button and
-   the other three stay quiet text links. Four equal buttons would flatten the
-   row into a nav bar and say nothing about which one matters. */
-.hero__actions { align-items: center; }
+.hero__channels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
 .hero__actions a:not(.cta) { border-bottom-color: var(--line); }
 .hero__actions a:not(.cta):hover { border-bottom-color: var(--signal); }
 
@@ -289,14 +371,19 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   gap: var(--space-2);
   margin-bottom: var(--space-5);
 }
+/* Stepped down from --step-1 to 1rem on 2026-08-31 to make room for more
+   entries. Not literally halved: 11px would put the highlights *below* the
+   0.75rem group chips and invert the tiers. 1rem against 0.75rem keeps the gap
+   that makes this row read as highlights rather than a repeat — that gap is the
+   rule, not the specific sizes. */
 .skills__top li {
   font-family: var(--font-display);
-  font-size: var(--step-1);
+  font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--void);
   background: var(--signal);
-  padding: 0.3rem 0.85rem;
+  padding: 0.25rem 0.7rem;
   border-radius: 999px;
 }
 
@@ -331,9 +418,7 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
 }
 
 @media (max-width: 34rem) {
-  .hero { min-height: auto; padding-bottom: var(--space-5); }
   .hero__portrait { width: 96px; height: 96px; }
-  .skills__top li { font-size: 1rem; }
   /* Keep "1–2 days ▸ 1–2 hours" on one line by dropping the label above it,
      so the comparison never splits. */
   .readout__label { flex: 1 0 100%; }
@@ -348,19 +433,38 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
 
 /* ==========================================================================
    Signature: the passing build.
-   Green means verified — in TDD, green is the passing state. The light in this
-   page rises from the bottom edge because it is emitted by the build going
-   green. This is the only place --glow appears outside the focus ring.
+   Green means verified — in TDD, green is the passing state, which is the idea
+   the whole page is built on. The badge going green is the moment it is stated
+   outright.
+
+   An inline figure inside About since 2026-08-31, sitting directly under the
+   paragraph it illustrates; it was the hero's bottom band before that, which is
+   why the rest of this block reads as if it owned a full-width strip. Space,
+   not a border, sets it apart — it is part of the argument in the prose above
+   it, not a separate exhibit. Weight still comes through space rather than type
+   size, so the stage labels never compete with .readout__now.
    ========================================================================== */
 .signature {
   position: relative;
   isolation: isolate;
-  /* Weight through space, not type size: .readout__now is the page's one
-     promoted figure and enlarging the stage labels would compete with it. */
-  padding-top: var(--space-6);
-  /* Lifts the readout clear of the bloom's bright core, so green-on-green
-     never costs legibility. */
-  padding-bottom: var(--space-6);
+  /* --moss, finally spent. It was reserved in the palette as "available for
+     depth" and this is the depth it was reserved for: the one block in the
+     reading column that is a diagram rather than prose, lifted off the void so
+     it reads as a figure. This is the only panel on the page — the rule that
+     content sections stay flat --void still holds; a section is not a figure.
+
+     Kept to --moss and nothing else: no gradient, no border, no shadow. The
+     ground changing is the whole signal, and anything more would make it a
+     card. Padding is on the panel, so the strip's internal spacing is
+     untouched. */
+  background: var(--moss);
+  padding: var(--space-4);
+}
+.prose + .signature { margin-top: var(--space-5); }
+.signature + .prose { margin-top: var(--space-5); }
+
+@media (max-width: 34rem) {
+  .signature { padding: var(--space-3); }
 }
 
 .signature__label {
@@ -369,7 +473,14 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--signal-dim);
+  /* Still the structural tier — the primary at 72% — but mixed against the
+     ground it actually sits on. --signal-dim is 72% of the *void*, and on the
+     moss panel that computed 4.63:1, the weakest thing in the block. Against
+     moss it is 5.25:1 and still clearly a step below the bright tier, so the
+     PASS badge and the 1-2 hours figure keep the signal to themselves.
+     Promoting the label to --signal was the other option and was rejected: it
+     would have put a label in the tier reserved for state and figures. */
+  color: color-mix(in srgb, var(--signal) 72%, var(--moss));
   margin-bottom: var(--space-3);
 }
 
@@ -480,7 +591,7 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-1);
-  margin-top: var(--space-5);
+  margin-top: var(--space-4);
 }
 .readout__label { color: var(--muted); }
 .readout__delta {
@@ -509,6 +620,36 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
   .pipeline__stage,
   .pipeline__stage::before,
   .state { transition: none; }
+}
+
+/* Third tier of Skills: the rest of the stack, stated as breadth. Separated by
+   space rather than a rule, and set apart from the four groups above it because
+   it is a weaker claim, not a fifth category. The note carries that in words —
+   body serif in --paper, because it is a sentence, and prose on this page is
+   never mono and never green. */
+.skills__aside { margin-top: var(--space-5); }
+.skills__aside-head {
+  /* An h3 defaults to bold; the dt heads above it do not, and these two are the
+     same kind of label. */
+  font-weight: 400;
+  color: var(--signal-dim);
+  margin-bottom: var(--space-1);
+}
+/* The one place mono carries a sentence, on the owner's call (2026-08-31). It
+   reads as a qualifier on the label above it rather than as prose, which is the
+   job it is doing, and at one short line the usual objection to mono body copy
+   does not bite. It is deliberately NOT in the mono utility group above: that
+   group forces uppercase, and a whole sentence in caps shouts. Sentence case,
+   one step below the head and in the quieter tone, so the pair reads as label
+   then caveat rather than as two labels. */
+.skills__aside-note {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  max-width: var(--measure);
+  margin-bottom: var(--space-3);
+  color: var(--muted);
 }
 
 /* ---------- experience ---------- */
@@ -701,4 +842,202 @@ a:hover { color: var(--signal); border-bottom-color: var(--signal); }
 .contact__key {
   min-width: 7rem;
   flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   Section rail: one more trace, with a node per section.
+   Deliberately the same idiom as .role and .pipeline — a vertical hairline in
+   --line with lit junction nodes on it — so the navigator reads as part of the
+   page's own language rather than a widget bolted to the edge. Desktop only:
+   below 900px there is no room beside the content and touch scrolling needs no
+   help. Built by scroll-effects.js, so it is absent rather than inert with JS
+   off, and it carries no content the page does not already have.
+   ========================================================================== */
+.dotnav {
+  position: fixed;
+  top: 50%;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  z-index: 4;
+  display: none;
+}
+
+@media (min-width: 56.25rem) {
+  .dotnav { display: block; }
+}
+
+.dotnav__list {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  gap: var(--space-3);
+}
+
+/* The trace. Inset by the dot's own radius at each end so it stops at the
+   first and last node instead of overshooting them. */
+.dotnav__list::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  bottom: 9px;
+  right: 9px;
+  width: 1px;
+  background: var(--line);
+}
+
+.dotnav__link {
+  position: relative;
+  display: block;
+  /* Padding, not a bigger dot: keeps the pointer target near 20px while the
+     node stays the 9px the other traces use. */
+  padding: 5px;
+  border-bottom: 0;
+}
+
+/* Filled dim, no ring. With every label showing, the dots are the quiet half
+   of the rail and a ring at 9px read as busy beside the text. Scaled rather
+   than resized on the active state: width would move every dot below it. */
+.dotnav__dot {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--signal) 32%, var(--void));
+  transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+/* Absolutely positioned: the label must never widen the rail, or the dots
+   shift away from the edge to make room for the longest section name. */
+.dotnav__label {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  margin-right: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* Dull utility tone by default — the rail says where you are without being
+     asked, and only the current section takes the signal. */
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(-50%) translateX(4px);
+  transition: color .25s ease, opacity .25s ease, transform .25s ease,
+              font-size .25s ease;
+}
+
+/* Hover and focus always reveal a label, at every width: it is transient and
+   the reader asked for it, so sitting briefly over a line of prose is fine. */
+.dotnav__link:hover .dotnav__label,
+.dotnav__link:focus-visible .dotnav__label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  color: var(--paper);
+}
+
+/* Labels stay up only where there is room for them, which is 80rem and above.
+   Measured, not guessed: at 1024px the longest label crosses the prose by 88px
+   and even the single active one crosses it by 48px; the collisions clear
+   entirely at 1280. The rail claims 14rem of the width, which is exactly why
+   the squeeze is worst just above 64rem. Narrower than this the lit, scaled
+   node carries the position on its own and the names are one hover away —
+   a name parked on top of a sentence is worse than no name. */
+@media (min-width: 80rem) {
+  .dotnav__label {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
+.dotnav__link:hover .dotnav__dot {
+  background: var(--signal-dim);
+}
+
+/* Lit node, glow and all — the same treatment as .role::before, because it
+   means the same thing: this is where you are on the trace. */
+.dotnav__link[aria-current="true"] .dotnav__dot {
+  background: var(--signal);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--signal) 70%, transparent);
+  transform: scale(1.35);
+}
+.dotnav__link[aria-current="true"] .dotnav__label {
+  color: var(--signal);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Scroll reveal.
+   The hidden state is scoped to .js-reveal, which scroll-effects.js sets on
+   <html> only when motion is welcome and IntersectionObserver exists. With JS
+   off, blocked, or broken the rule never matches and every element is simply
+   visible — the page must not depend on a script to show its content.
+   Only opacity and transform animate; nothing here triggers layout or paint.
+   ========================================================================== */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease-out, transform .6s ease-out;
+  /* Set per element by the observer to cascade siblings. */
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   Soft scroll-snap — proximity, never mandatory.
+   Only the two sections that reliably fit one screen carry an alignment. The
+   hero is exactly 100svh, and Skills is the one content section short enough.
+   About, Experience, Selected work, Recognition and Contact are all taller
+   than a laptop viewport — snapping them would fight the reader mid-section.
+   proximity, so even when a section turns out taller than expected the reader
+   is nudged rather than trapped.
+
+   Two bands, because Skills is not one height. Measured, not guessed:
+
+     900-1023px   636-774px   single column
+     1024-1119px  781px       tallest: the rail claims 14rem and the chip
+                              groups reflow into a narrower column
+     1120px+      741px       settles
+
+   One gate for both would either enable snapping where Skills overflows the
+   viewport, or give up 1366x768 — a common laptop — to protect a band that
+   does not need protecting. So the wide band asks for 47rem of height and the
+   narrow one, where Skills peaks, asks for 50rem.
+   ========================================================================== */
+@media (min-width: 70rem) and (min-height: 47rem) {
+  html { scroll-snap-type: y proximity; }
+  #hero,
+  #skills { scroll-snap-align: start; }
+}
+
+@media (min-width: 56.25rem) and (max-width: 69.9375rem) and (min-height: 50rem) {
+  html { scroll-snap-type: y proximity; }
+  #hero,
+  #skills { scroll-snap-align: start; }
+}
+
+/* ==========================================================================
+   Reduced motion.
+   Everything resolves immediately: the strip is already pass in the markup,
+   the reveal state never applies, snapping is off, and no transition runs.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; }
+
+  .js-reveal .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .dotnav__dot,
+  .dotnav__label { transition: none; }
+  /* The lit node keeps its size — only the transition goes. */
+
+  a, .cta { transition: none; }
 }

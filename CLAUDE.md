@@ -9,9 +9,20 @@ Task breakdown: `docs/implementation-plan.md`
 
 ## Hard constraints
 
-- **Three files, zero dependencies, no build step:** `index.html`, `styles.css`,
-  `main.js`. Do not add `package.json`, a bundler, a framework, or a CSS library.
-  The whole point is that this page still opens in ten years.
+- **Exactly one HTML file: `index.html`.** This is a single-page site, and that is
+  the page. A second `.html` file means the site has stopped being what it is —
+  don't add one.
+- **CSS and JS files are not rationed.** Split them however the work reads best;
+  there is no file count to defend. Same for assets — images, PDFs, fonts, icons:
+  add what the page needs.
+- **Zero dependencies, no build step.** This is the constraint that actually
+  matters, and it is not about the number of files. No `package.json`, no bundler,
+  no framework, no CSS library, no CDN script. Everything ships as it is written,
+  and the page still opens in ten years.
+- Keep each file's job obvious from its name. `main.js` is the page's own
+  behaviour (durations, the signature strip, the circuit); `scroll-effects.js` is
+  the section rail and the scroll reveal, kept separate so the whole behaviour can
+  be reviewed or dropped by deleting one `<script>` tag.
 - **`index.html` must be complete and readable with CSS and JS disabled.** All
   content lives in the markup. JavaScript only enhances.
 - **No invented facts.** Every number, date, client, and claim on this page came
@@ -24,14 +35,14 @@ Use these exact values. Do not introduce a new hue — not a red, not a second a
 | Token | Hex | Where it goes |
 |---|---|---|
 | `--void` | `#000000` | Page ground. True black. |
-| `--moss` | `#0A2A16` | Reserved deep green. Currently unused; available for depth. |
-| `--signal` | `#00E24A` | Bright tier — state, claims, figures. The `PASS` badge, `.cta`, `.skills__top` pills, `.work__client`, `#tenure`, `.readout__now`, the flags. 11.98:1. |
-| `--signal-dim` | `signal` at 72% on void → `#00A335` | Structural tier — labels and chrome. Section heads, `.skills__groups dt`, `.contact__key`, `.signature__label`. 6.29:1. |
+| `--moss` | `#0A2A16` | The signature panel ground, and nothing else. Spent 2026-08-31 on the one figure in the reading column. |
+| `--signal` | `#00E24A` | Bright tier — state, claims, figures. The `PASS` badge, `.cta`, `.skills__top` pills, `.work__client`, `#tenure`, `.readout__now`, the flags, the **active** rail dot and its label. 11.98:1. |
+| `--signal-dim` | `signal` at 72% on void → `#00A335` | Structural tier — labels and chrome. Section heads, `.skills__groups dt`, `.contact__key`, `.signature__label`, idle rail labels. 6.29:1. |
 | `--glow` | `#7CFFA8` | Circuit pulses and focus rings **only**. |
 | `--paper` | `#EAF3EC` | Body prose, headings, role notes. |
 | `--muted` | `#8FA396` | Mono utility text: dates, durations, locations, stack. |
 | `--brass` | `#C79A3C` | Recognition section **only** — the certificate is cream/gold. |
-| `--line` | `signal` at 24% | All hairlines. Green-tinted, not grey. |
+| `--line` | `signal` at 24% | All hairlines: the portrait frame, the pull rules, the work separators, the rail's trace. Green-tinted, not grey. **Not** between sections — see Layout invariants. |
 
 **Rules that matter:**
 
@@ -40,7 +51,11 @@ Use these exact values. Do not introduce a new hue — not a red, not a second a
 - `--glow` never appears outside the circuit pulses and `:focus-visible`.
 - `--brass` never leaks outside `.award`.
 - Content sections below the hero are flat `--void` — no gradients, no filters.
-  The hero is the only place with atmosphere.
+  The hero is the only place with atmosphere. **`.signature` is the one panel**
+  (`--moss`, 2026-08-31): a section is not a figure, and that block is the only
+  figure sitting inside the reading column. Flat colour only — no gradient, no
+  border, no shadow. The ground changing is the whole signal; anything more makes
+  it a card. Do not give a second block a background.
 
 **Two intensities, one hue.** The primary is still used **generously** — labels,
 hairlines, chips, badges, key figures. The 2026-08 design review's complaint was
@@ -60,9 +75,22 @@ as *the* signal. So green stays everywhere it was, split across two tiers:
 |---|---|---|
 | **Space Grotesk** | Display — name, section heads, employer and work names, **role titles**, the five featured skill badges (`.skills__top`) | Mixed case. **Never uppercase.** The owner rejected uppercase display type. |
 | **Newsreader** | Body serif — prose, role notes | 19px, weight 450 so strokes hold up on black. |
-| **IBM Plex Mono** | Utility only — dates, durations, locations, stack, labels, badges, the group skill chips (`.chips`) | Uppercase here is correct and intentional, including the group skill chips. Never body copy. |
+| **IBM Plex Mono** | Utility only — dates, durations, locations, stack, labels, badges, the group skill chips (`.chips`), and `.skills__aside-note` | Uppercase here is correct and intentional, including the group skill chips. Never body copy, with one carve-out below. |
 
 Loaded from Google Fonts with system fallbacks. Keep the fallbacks.
+
+**Mono carries exactly one sentence: `.skills__aside-note`.** The owner's call on
+2026-08-31. It qualifies the label above it rather than being read as prose, and
+at one short line the usual objection to mono body copy does not apply. Two things
+keep it from becoming a licence for mono paragraphs:
+
+- It stays **out of the mono utility selector group**, because that group forces
+  uppercase and a whole sentence in caps shouts. Sentence case, deliberately.
+- It sits one step below its head (`0.75rem` against `0.8125rem`) and in `--muted`
+  against the head's `--signal-dim`, so the pair reads as label then caveat rather
+  than as two labels.
+
+Any other sentence on this page goes in the reading serif.
 
 **`.role__title` is display, not serif.** It sat in the body serif until 2026-08
 and was the page's one genuine typography break — every other name-level heading
@@ -88,18 +116,66 @@ as the signal. Consolidated 2026-08:
 | Rect (`0`) | a state, or a primary action | `.state` on pass, `.cta` | `.state` pending, `.employer__flag`, `.work__flag`, `.contact__flag` |
 
 - **Do not add a third shape.** A new badge picks one of these two and a fill.
+- The rail's dots are **not** a third badge shape. They are trace nodes, the same
+  circle as `.role::before` and `.pipeline__stage::before`, which predate this rule
+  — a node marks a position on a line, a badge labels a thing. Keep them distinct.
 - The flags run one size down (`0.2rem 0.5rem` vs `.state`'s `0.3rem 0.7rem`)
   because they sit inline inside a heading. Same family, not a third treatment.
-- The two pill tiers also run at two sizes on purpose: `.skills__top` at
-  `--step-1`, `.chips` at `0.75rem` — one step below the mono utility default so
-  the four groups hold more skills per row. Do not "unify" them to one size; the
-  size gap is what makes the top row read as highlights rather than a repeat.
+- The two pill tiers run at two sizes on purpose: `.skills__top` at `1rem`,
+  `.chips` at `0.75rem` — one step below the mono utility default so the four
+  groups hold more skills per row. **The rule is the gap, not the numbers.** Do
+  not "unify" them to one size; the gap is what makes the top row read as
+  highlights rather than a repeat.
+- `.skills__top` came down from `--step-1` to `1rem` on 2026-08-31 to make room
+  for more entries. The owner asked for "half" — taken as intent, not arithmetic:
+  a literal 11px would put the highlights *below* the group chips and invert the
+  tiers. Whatever this size becomes next, it stays above `.chips`.
 - **The skill group heads carry no rule under them.** A hairline was tried on
   2026-08-26 and removed the same day on the owner's call. The `--space-5` row gap
   between groups and the dim tier on the head do that job.
 - `.cta` is the filled rect: one per region at most. The hero has exactly one
-  (the résumé) and Contact has exactly one (the mailto). Four equal buttons in the
+  (the resume) and Contact has exactly one (the mailto). Four equal buttons in the
   hero action row flattens it into a nav bar and says nothing about which matters.
+- **The hero's CTA leads its own row, with the three channels under it**, since
+  2026-08-31. In one row it read as a fourth link that happened to be boxed;
+  above them it is plainly the action, and the hero picks up some of the height
+  it lost when the signature strip moved to About. The order is set in the
+  **markup, not with flex `order`**, so the keyboard and the screen reader meet
+  the button first too — tab order runs Download Resume, Email, LinkedIn, GitHub.
+  The two rows are `--space-4` apart against the `--space-3` inside the channel
+  row, so they read as two groups rather than one list.
+
+## Icons
+
+Added 2026-08-31. One inline `<svg class="sprite">` at the top of `<body>` holds
+every `<symbol>`; each use is `<svg class="icon"><use href="#i-…"></svg>`.
+
+- **Line icons on a 24 grid, stroke only, never fill.** They carry the same
+  hairline weight as every rule on the page and take `currentColor`, so a mark
+  is always the colour of the text beside it. A filled icon set would be the one
+  solid illustrative thing on a page made of hairlines and type.
+- **No icon font, no CDN, no SVG file.** The sprite costs no request and works
+  with JS off, which is why it is a sprite and not eleven copies of each path.
+- The sprite carries `width="0" height="0"` **as attributes**, not only in CSS —
+  with CSS disabled it would otherwise reserve an SVG's default 300×150 and open
+  a blank gap above the page.
+- **Every use is `aria-hidden="true"` and keeps its text label.** No icon is ever
+  the only way to know what a control does, and no accessible name is doubled.
+  Nothing gets `tabindex`; `focusable="false"` is on the sprite for old IE-era
+  behaviour.
+- Sized in `em` and aligned with `vertical-align`, **not flex**. These sit inside
+  links whose text must stay wrappable and an `inline-flex` link will not break —
+  the email address is 31 characters and does break at 375px.
+- The reset sets `svg { display: block }`, so `.icon` has to restate
+  `inline-block`.
+- Where they go: the three hero channels, the hero CTA, every Contact key, the
+  Contact mailto CTA, and the project-list download. Links and actions only —
+  **not** section heads, not decoration. If a new icon does not mark a control or
+  a channel, it does not belong.
+- The LinkedIn and GitHub marks are **generic line interpretations, not the
+  companies' logos.** That keeps them consistent with the set and steers clear of
+  reproducing trademarks — the same instinct as the rejected client logo marks,
+  though that rule was about clients.
 
 ## Layout invariants
 
@@ -114,10 +190,30 @@ as the signal. Consolidated 2026-08:
 - Section heads are sized down to `--step-1` in the rail — they must fit `14rem` or
   they overlap the content. Check this if you rename a section.
 - Prose is capped at `--measure` (62ch). Don't let paragraphs run the full column.
+- **No rule between sections.** The full-bleed hairline on `.section` was removed
+  on 2026-08-31 on the owner's call — a hard line across the page every screen.
+  What separates sections now is `--space-6` top and bottom, which is 12rem of
+  quiet between one and the next. Don't put the border back to "help" the rhythm;
+  if sections read as running together, the fix is space.
+- **Every top-level section carries an `id` and a `data-nav-label`.** That pair is
+  what `scroll-effects.js` discovers — the rail and the reveal are generated from
+  whatever matches `[id][data-nav-label]`, in document order, never from a list in
+  the JS. Add a section with both attributes and it gets a dot and a reveal pass
+  for free; omit them and it silently gets neither. The label is the visible text
+  in the rail, so keep it short enough to sit in one line beside a dot.
+- The hero is `Intro` in the rail, not "Hero" — the visitor is not reading a
+  developer's section names.
 
 ## The hero
 
-Two parts, and both have history — read before changing.
+The hero is now the intro alone — portrait, name, thesis, action row — vertically
+centred in `100svh`. The signature strip that used to fill its bottom half moved
+into About on 2026-08-31; `justify-content` went from `space-between` to `center`
+at the same time, because with one child there was nothing left to push against.
+Keep `min-height`, not `height`: on a short viewport the box must grow rather than
+clip its content against the hero's `overflow: clip`.
+
+The circuit stays, and has history — read before changing.
 
 **The circuit** (`#circuit` canvas, drawn in `main.js`): orthogonal green traces on a
 coarse grid with glowing pulses travelling along them. Generated from a **seeded**
@@ -135,8 +231,16 @@ out toward the top so the name stays on near-flat black.
 > An earlier hero used an aurora glow rising from the bottom. **It was rejected. Do
 > not reintroduce it.** The owner wants technology-literal imagery.
 
-**The signature strip**: `design → structured spec → tested component`, resolving to
-a lit `PASS`, with the real measured payoff `1–2 days ▸ 1–2 hours`.
+## The signature strip — now in About
+
+`design → structured spec → tested component`, resolving to a lit `PASS`, with the
+real measured payoff `1–2 days ▸ 1–2 hours`. It sits in About directly under the
+specialism paragraph, as the figure that illustrates it — **not** in the hero, and
+not as a section of its own. It was the hero's bottom band until 2026-08-31.
+
+Space sets it apart, not a border: `--space-5` above and below, and it is a direct
+child of `.shell` rather than a child of `.prose`, because `.prose p` would repaint
+its label and readout in `--paper`.
 
 The concept holding the whole page together: **green is the TDD passing state.** The
 owner's specialism is test-driven agentic UI generation, so green means verified.
@@ -154,22 +258,101 @@ That's why the page is black and green rather than because dev portfolios are.
   the page's other timeline instead of importing a second visual language. Vertical
   below `48rem`, horizontal above. Do **not** go back to inline `→` glyph separators;
   they wrapped at 360px and left an arrow at line-start pointing at nothing.
+- **The panel costs contrast, and the label is where it shows.** Every ratio in
+  the block is measured against `--moss`, not the void: stage labels 13.67:1,
+  `.readout__now` 8.84:1, the `--muted` readout label and struck days 5.79:1 (down
+  from 7.85 on the void), and `.signature__label` 5.28:1. That last one is why the
+  label mixes its dim tier **against `--moss` rather than the void** — at 72% of
+  the void it computed 4.63:1 and was the weakest thing in the block. It stays in
+  the structural tier; promoting it to `--signal` was rejected because that tier
+  belongs to state and figures, which here means the `PASS` badge and the
+  `1–2 hours`. If the panel ever changes value, **re-measure all five** — and note
+  `getComputedStyle` returns `color(srgb r g b)` with 0–1 floats for `color-mix`
+  values and `rgb()` with 0–255 for literals. Feeding the first to a 0–255
+  contrast formula reports a bogus 1.35:1.
+- Darker mixes of `--moss` were measured and rejected: at 70% the panel reads
+  1.20:1 against the void, which is too close to no panel at all to be worth
+  doing. Full `--moss` is 1.36:1.
 - **`.readout__now` is the one promoted figure on the page**, set in the display face
-  at `--step-2` — the size of the hero thesis line. The thesis states the claim, this
-  proves it. It stays below the name, which is the only thing at `--step-4`. Its
+  at `--step-2` — the size of the hero thesis line. The hero thesis states the claim,
+  this proves it, and it now does so from inside About. It stays below the name,
+  which is the only thing at `--step-4`. Its
   `text-transform: none` is load-bearing: `.readout` inherits uppercase from the mono
   utility group, and the display face is never uppercase. Keep `1–2 days` small,
   muted and struck; the size contrast is the whole argument.
 - `main.js` only ever touches `.signature` and its `dataset.state` — never the inner
   elements. Keep it that way and the strip's markup stays free to change.
+- **The resolve waits until the strip is in view.** Below the fold, replaying it at
+  load spends the page's one orchestrated moment on an empty screen. `playSignature`
+  observes the strip and fires on first intersection; with no `IntersectionObserver`
+  it fires at load as before, because a resolve nobody saw beats one stuck pending.
+- The stat now appears in exactly two places: here, and the Agentic UI Builder
+  outcome line in Selected work. Do not add a third.
 
 ## Motion
 
-- One orchestrated load moment (the strip resolving) plus the ambient circuit.
-  Don't add scroll animations, parallax, or hover flourishes.
+The "no scroll animations" rule was lifted on 2026-08-31 on the owner's call, and
+replaced with a bounded one. Scroll reveal is now part of the page; parallax,
+scroll-driven scrubbing and hover flourishes are still out.
+
+- Three motions total, and that is the budget: the strip resolving, the ambient
+  circuit, and the scroll reveal. Don't add a fourth.
+- **The reveal is fade plus a 20px rise, 600ms, ease-out, staggered 70ms between
+  siblings.** No bounce, no rotation, no scale. It animates `opacity` and
+  `transform` only — never a property that costs layout or paint.
+- **It plays once.** The observer unobserves on first reveal; scrolling back up a
+  section must not replay it.
+- **The hidden state is scoped to `.js-reveal` on `<html>`, set only from
+  `scroll-effects.js`.** With the script absent, blocked, or motion unwelcome the
+  rule never matches and everything is simply visible. Never put the hidden state
+  in the markup or on a bare selector — that is one failed request away from a
+  blank page.
 - `prefers-reduced-motion: reduce` must render the final state immediately, freeze
-  the circuit (traces and nodes, no pulses), and run no transitions.
+  the circuit (traces and nodes, no pulses), disable snapping, skip the reveal
+  entirely, and run no transitions.
 - The circuit pauses on `visibilitychange` when the tab is hidden. Keep that.
+
+## The section rail and soft snap
+
+- **The rail is chrome, not content**, so `scroll-effects.js` builds it and the
+  markup ships without it. Every label it shows is already a heading further down
+  the page, so a visitor without JS loses nothing.
+- It is **one more trace**: a hairline in `--line` with a lit node per section, the
+  same idiom as `.role` and `.pipeline`. The active dot takes `--signal` with the
+  same glow as `.role::before` — it means the same thing, so it looks the same.
+  Don't restyle it into a generic widget.
+- Desktop only, `≥900px`. Below that there is no room beside the content.
+- **Idle dots are filled dim, with no ring** (2026-08-31). Once the labels are up
+  the dots are the quiet half of the rail, and a 9px ring beside text read as busy.
+- **The active dot scales, it does not resize.** `transform: scale(1.35)` — a
+  width change would move every dot below it.
+- The label is **absolutely positioned** off the dot. In flow it would widen the
+  rail to fit "Selected work" and push every dot away from the edge.
+- **Labels stay up only at `≥80rem`; below that they are hover- and focus-only.**
+  This is a measured limit, not a preference. At 1024px the longest label crosses
+  the reading column by 88px and even the single active one crosses it by 48px,
+  because the rail has just claimed 14rem of the width; the collisions clear
+  entirely at 1280. The dots themselves never collide at any width — only the
+  labels do. **Re-measure before lowering this gate**, and measure the text, not
+  the boxes: block elements span the whole column, so a box test reports
+  collisions that are not there and misses none that are. Use `Range`
+  `getClientRects()` over leaf text nodes, and require overlap on both axes.
+- Idle labels sit at `--muted` (7.85:1), the active one at `--signal` (11.98:1),
+  one step larger. Both clear the 7:1 floor.
+- The active section is resolved by **measuring on each observer crossing**, not by
+  taking the last element to intersect. Two sections sit in the band at a boundary,
+  and near the foot of the page the last one may never reach it at all.
+- The **scrollbar** is styled to the palette: track on `--void`, thumb at the
+  primary mixed to 38%. Firefox takes `scrollbar-color`/`scrollbar-width`, WebKit
+  and Blink need the `::-webkit-scrollbar-*` pseudo-elements, so both are
+  declared. The thumb's transparent border plus `background-clip: padding-box` is
+  what insets it — WebKit has no padding there.
+- **Snap is `proximity`, never `mandatory`**, and only `#hero` and `#skills` carry
+  an alignment. Everything else is taller than a laptop viewport. It is gated on
+  height as well as width, in two bands, because Skills is not one height — see the
+  measured table in `styles.css`. It peaks at 781px just above `64rem`, where the
+  rail claims `14rem` and the chips reflow. **Re-measure before widening the gate**;
+  a snap point you cannot rest on is a nudge in the wrong direction.
 
 ## Durations — never hardcode a live one
 
@@ -180,7 +363,9 @@ Ongil.ai employer line (`2021-09`).
 **Individual roles carry a date range and no duration** — `Jun 2024 – Present`, not
 `Jun 2024 – Present · 2 Years 2 Months`. The range already implies the span, the
 employer line above already gives total tenure, and the role's job is to show *when
-the promotion happened*. All five roles follow this; do not add a duration to one.
+the promotion happened*. All three roles follow this; do not add a duration to one.
+The Early Career role carries no date range either — the years sit on the block's
+own meta line, and repeating them on the single role beneath it says nothing.
 
 - Format is **full words**: `12 Years 2 Months`, `2 Years 1 Month`, `5 Years`.
 - Convention is **elapsed** months, not LinkedIn's inclusive count — the page reads
@@ -212,8 +397,11 @@ the promotion happened*. All five roles follow this; do not add a duration to on
   linked from the hero actions and Contact. Both links carry `download` and no
   `target` — it is same-origin, so the external-link rule does not apply. The file
   must stay tracked in git or the link 404s on Pages. The label promises a download
-  because it performs one: "Download résumé" in the hero, "Download PDF · 2 MB" in
-  Contact. A **Figma** résumé link was removed on request — do not add that back.
+  because it performs one: "Download Resume" in the hero, "Download PDF · 2 MB" in
+  Contact. A **Figma** resume link was removed on request — do not add that back.
+- **"Resume" is spelled without accents**, everywhere it appears as a label — the
+  hero button, the Contact key. The owner asked for the plain word on 2026-08-31.
+  The file name `Elavarasan_Resume_2026.pdf` already matched.
 - Contact channels are email, phone, LinkedIn, GitHub, plus the résumé download.
 - **The full project list is a second committed, same-origin PDF:**
   `Elavarasan_Projects_2026.pdf`, linked once from the end of Selected work as
@@ -223,14 +411,21 @@ the promotion happened*. All five roles follow this; do not add a duration to on
   A Google Doc was considered and rejected: it would depend on an account the
   owner could lose. Do not swap this for a hosted-elsewhere link.
 - **No school entries.** The degree line under About is the whole education story.
-- **About carries exactly one pull-quote** (`.prose .pull`), and it is a sentence
-  *promoted out of* the paragraph above it, not new copy — the no-invented-facts
-  rule covers pull-quotes too. It stays in the reading serif rather than switching
-  face, because it is the owner's own line and not a quotation. Its measure is
-  `38ch`: at `46ch` and `--step-2` it computed *wider* than the 62ch prose at
-  `--step-0` and sat outside the reading column. A stat strip was considered and
-  rejected — tenure and the `1–2 hours` figure already live in the hero, and
-  repeating them there dilutes the one place they matter.
+- **About runs in a fixed order**, and the middle item is a figure, not prose:
+  1. intro paragraph (2014, React/TypeScript/D3)
+  2. specialism paragraph (agentic, test-driven)
+  3. the signature strip — the figure that illustrates 2
+  4. "work spans" paragraph
+  5. the education line
+
+  The two prose runs are **separate `.prose` blocks** either side of the strip, so
+  each stays a direct child of `.shell` and lands in column 2 of the rail grid.
+- **The pull-quote is gone** (2026-08-31). It read "workflows that turn structured
+  inputs into production-ready frontend components, held to a test-driven standard"
+  — which is exactly what the process visual now shows, so the page was making the
+  same claim twice, once in words and once in a diagram. Do not reinstate it
+  alongside the strip. A stat strip was considered and rejected separately: tenure
+  and the `1–2 hours` figure already have their one place each.
 - **Contact carries a standing-state flag** (`Open to collaboration`) in the rect
   badge family. That is the soft signal — it is not "available for work" and must
   not become that. The sentence under it was rewritten so the badge is not just
@@ -238,24 +433,54 @@ the promotion happened*. All five roles follow this; do not add a duration to on
 - **A contact form is impossible here** — static, no backend, no dependencies. The
   mailto `.cta` is the honest version and is what the review's "button-style CTA"
   becomes on this page. Do not add a third-party form service.
-- **The Skills top row is the highlights tier**, not a duplicate of the grid. Only
-  `React` was ever an exact duplicate and it was dropped from the Frontend group.
-  `Agentic UI generation` stays in the AI group: it is a narrower claim than the
-  `Agentic AI` pill, and it is the group's most distinctive entry.
+- **Skills runs in three tiers, and each one is a weaker claim than the last:**
+  1. `.skills__top` — the five filled pills. The highlights, not a duplicate of
+     the grid. Only `React` was ever an exact duplicate and it was dropped from
+     the Frontend group. `Agentic UI generation` stays in the AI group: it is a
+     narrower claim than the `Agentic AI` pill, and the group's most distinctive
+     entry.
+  2. `.skills__groups` — the four categories. The working set.
+  3. `.skills__aside` — "Hands-on experience". The rest of the stack, added
+     2026-08-31: Python, PostgreSQL, FastAPI, PHP.
+
+  The third tier's note — "Enough to collaborate across the stack, not to own
+  it." — **is the point of that block**, not a caption. It is what stops four
+  more chips from reading as four more things owned; if the block ever loses the
+  note, it should lose the block. It is the owner's wording.
+
+  It is set in **mono at `0.75rem` in `--muted`, sentence case** — see the
+  carve-out in Typography. It ran as `--step-0` body serif for a few hours on
+  2026-08-31 and the owner asked for the label's face, smaller: at 19px serif it
+  was the largest thing in the section and pulled the eye straight to the
+  weakest claim.
+- Separated by `--space-5` and no rule, like the skill group heads. Its head is
+  an `h3` in the mono utility group with `font-weight: 400` — an `h3` defaults to
+  bold and the `dt` heads above it are not.
 - **Client logo marks were rejected.** The clearance list covers naming these
   clients, not reproducing their trademarks. The green caps already carry the
   trust signal.
-- Xyden has **no public URL** — describe it, never link to the product. It no
-  longer has its own Selected work block; the About paragraph is where it lives on
-  the page. If it is ever restored to Selected work, it carries an "In progress"
-  badge and no link. Note the project-list PDF *does* describe it in depth and
-  names its client, Xqtiv — the owner cleared that on 2026-08-03. "Not public"
-  now means "no link to a live product", not "do not mention".
+- Xyden has **no public URL** — describe it, never link to the product. As of
+  2026-08-31 it is **off the page entirely**: its About paragraph came out to make
+  room for the process visual, on the owner's call that it was the weakest,
+  least-proven claim in the section. It lives in the project-list PDF only, which
+  *does* describe it in depth and names its client, Xqtiv — the owner cleared that
+  on 2026-08-03. If it is ever restored to Selected work, it carries an "In
+  progress" badge and no link. "Not public" means "no link to a live product", not
+  "do not mention".
 - **Selected work holds exactly three blocks**, chosen for breadth: one per client
   (Vanguard, Capgemini, 3M) and one per capability (agentic tooling, AI product UI,
   data visualisation). Agentic UI Builder leads because its outcome is the hero's
   headline figure. The rest of the work lives behind the "See all projects" link at
   the end of the section. Adding a fourth block means dropping one — keep it at three.
+- **Experience holds exactly two blocks**: Ongil.ai with its two roles, then a
+  single `Early Career` block covering Gtect Systems and Asareri Technologies as
+  `UI Developer → Senior UI Developer`, `2014–2021`. Collapsed from three employers
+  and five roles on 2026-08-31 — the early years were four role entries of
+  diminishing relevance, and the weight belongs on the Ongil.ai years. It is still
+  a plain `.employer` / `.role` pair, so the trace idiom and every spacing rule
+  hold unchanged. **Its meta line carries no location**, deliberately: two cities'
+  worth of employers on one line is a list, not a location. That is the one
+  exception to the locations rule above, and it is the owner's call.
 - Every role carries a one-line description. Keep that consistent if you add one.
 - External links open in a new tab with `rel="noopener"`. `mailto:`, `tel:`, the
   in-page skip link, and the same-origin résumé PDF deliberately do **not** — a new
@@ -302,12 +527,25 @@ Non-negotiable, and all of it is verified:
 There is no test framework, by design — the JS is presentation-only, so browser
 assertions cover what matters.
 
-**The MCP config blocks the `file:` protocol.** Serve the folder:
+**The MCP config blocks the `file:` protocol.** Serve the folder — and serve it
+`no-store`, or you will spend a while testing a cached stylesheet and believing the
+page is broken:
 
-```bash
-python3 -m http.server 8765 --bind 127.0.0.1
-# then drive http://127.0.0.1:8765/index.html with the Playwright MCP tools
+```python
+# scratch file, then run it in the background
+import http.server, os
+class H(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header('Cache-Control', 'no-store, must-revalidate')
+        super().end_headers()
+os.chdir('/path/to/this/folder')
+http.server.ThreadingHTTPServer(('127.0.0.1', 8766), H).serve_forever()
 ```
+
+Two traps that cost time on 2026-08-31: `pkill -f "http.server"` matches the shell
+running it and kills your own command, and `page.goto` to a URL you have already
+visited restores the previous scroll position — which looks exactly like elements
+revealing before they should.
 
 Stop the server when done, and delete the `.playwright-mcp/` artifact directory it
 drops in this folder — it should never be committed.
@@ -316,6 +554,12 @@ drops in this folder — it should never be committed.
 `monthsBetween`, `formatTenure`, `tenureAt`, `renderDurations`, `shouldAnimate`,
 `traceCount`, `buildTraces`, `seeded`, plus `CAREER_START`, `RESOLVE_DELAY_MS`, and
 `TRACE_CAP`. Assert against these rather than scraping rendered text where you can.
+
+`scroll-effects.js` exposes `window.__scrollEffects`: `sections`, `BAND`,
+`REVEAL_GROUPS`, `REVEAL_STEP_MS`, `REVEAL_MAX_STEPS`, and `resolveActive`.
+
+Note `innerText` applies `text-transform`, so most of this page's labels come back
+uppercase. Match case-insensitively or you will "lose" text that is present.
 
 **Check these after any visual change:**
 
@@ -326,7 +570,17 @@ drops in this folder — it should never be committed.
    Wait for transitions to settle before asserting colours or opacity.
 3. Section heads still fit the rail with no overlaps.
 4. Prose and role notes still `rgb(234, 243, 236)`; no brass outside `.award`.
-5. Reduced motion: strip is `pass` immediately, circuit frozen, transitions at `0s`.
+5. Reduced motion: strip is `pass` immediately, circuit frozen, transitions at `0s`,
+   no `.js-reveal` class, `scroll-snap-type: none`, nothing below full opacity.
 6. Console clean. Every link reachable by keyboard with a visible ring.
-7. Take screenshots and actually look at them. Every real defect in this page was
+7. **Scroll the whole page and assert nothing is left hidden.** The reveal's failure
+   mode is invisible content, not a visible glitch. A negative bottom `rootMargin`
+   was rejected for exactly this reason: the footer's own bottom padding holds the
+   last elements above a trimmed root, so they would never reach their trigger.
+8. **Snapping must never be enabled on a section that overflows the viewport.**
+   Check `#hero` and `#skills` against `innerHeight` at 900×900, 1024×768, 1024×800,
+   1366×768 and 1280×800 — 1024×768 is the case that catches a gate set too low.
+9. With JavaScript disabled: every section present, both duration fallbacks current,
+   the strip on `pass`, no rail, and nothing at less than full opacity.
+10. Take screenshots and actually look at them. Every real defect in this page was
    found by looking, not by asserting.

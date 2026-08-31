@@ -54,7 +54,39 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <header class="hero">
+    <!-- Icon sprite. Defined once, referenced with <use> — no icon font, no
+         request, no dependency, and it still works with JS off. Drawn as line
+         icons on a 24 grid to match the page's hairlines: stroke and fill come
+         from .icon so every mark inherits the colour of the text beside it.
+         Every reference is aria-hidden with its label left as real text. -->
+    <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="M2.5 6.5 12 13.5l9.5-7" />
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <path
+          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"
+        />
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 24 24">
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+        />
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <path d="M7 10l5 5 5-5" />
+        <path d="M12 15V3" />
+      </symbol>
+    </svg>
+
+    <header class="hero" id="hero" data-nav-label="Intro">
       <canvas id="circuit" class="circuit" aria-hidden="true"></canvas>
 
       <div class="hero__top shell">
@@ -68,42 +100,27 @@
         </p>
         <h1 class="hero__name">Elavarasan J</h1>
         <p class="hero__thesis">I build the systems that build interfaces.</p>
-        <nav class="hero__actions" aria-label="Contact and résumé">
-          <a href="mailto:elavarasan.infotech10@gmail.com">Email</a>
-          <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">GitHub</a>
-          <a class="cta" href="Elavarasan_Resume_2026.pdf" download>Download résumé</a>
+        <nav class="hero__actions" aria-label="Contact and resume">
+          <a class="cta" href="Elavarasan_Resume_2026.pdf" download>
+            <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>Download Resume
+          </a>
+          <span class="hero__channels">
+            <a href="mailto:elavarasan.infotech10@gmail.com">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>Email
+            </a>
+            <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg>LinkedIn
+            </a>
+            <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub
+            </a>
+          </span>
         </nav>
-      </div>
-
-      <div class="signature" data-state="pass">
-        <div class="shell">
-          <h2 class="signature__label">How the work gets made</h2>
-          <div class="pipeline">
-            <ol class="pipeline__stages">
-              <li class="pipeline__stage">Design</li>
-              <li class="pipeline__stage">Structured spec</li>
-              <li class="pipeline__stage">Tested component</li>
-            </ol>
-            <p class="state">
-              <span class="state__pending">Pending</span>
-              <span class="state__pass">Pass</span>
-            </p>
-          </div>
-          <p class="readout">
-            <span class="readout__label">Component build time</span>
-            <span class="readout__delta">
-              <span class="readout__was">1–2 days</span>
-              <span class="readout__arrow" aria-hidden="true">▸</span>
-              <span class="readout__now">1–2 hours</span>
-            </span>
-          </p>
-        </div>
       </div>
     </header>
 
     <main id="main">
-      <section class="section" aria-labelledby="skills-h">
+      <section class="section" id="skills" data-nav-label="Skills" aria-labelledby="skills-h">
         <div class="shell">
           <h2 class="section__head" id="skills-h">Skills</h2>
           <div class="skills">
@@ -166,16 +183,32 @@
                     <li>GraphQL</li>
                     <li>Jest</li>
                     <li>Vitest</li>
+                    <li>Playwright</li>
                     <li>Code review</li>
                   </ul>
                 </dd>
               </div>
             </dl>
+
+            <!-- Third tier, and the claim steps down again: the pills are the
+                 highlights, the groups are the working set, this is the rest of
+                 the stack. The note is the point of the block — it is what keeps
+                 the list from reading as five more things owned. -->
+            <div class="skills__aside">
+              <h3 class="skills__aside-head">Hands-on experience</h3>
+              <p class="skills__aside-note">Enough to collaborate across the stack, not to own it.</p>
+              <ul class="chips">
+                <li>Python</li>
+                <li>PostgreSQL</li>
+                <li>FastAPI</li>
+                <li>PHP</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="about-h">
+      <section class="section" id="about" data-nav-label="About" aria-labelledby="about-h">
         <div class="shell">
           <h2 class="section__head" id="about-h">About</h2>
           <div class="prose">
@@ -187,24 +220,44 @@
               The specialism is agentic, AI-driven development. It accelerates delivery, raises code quality, and cuts
               rework across complex UI systems.
             </p>
-            <p class="pull">
-              Workflows that turn structured inputs into production-ready frontend components, held to a test-driven
-              standard.
+          </div>
+
+          <!-- The process visual illustrates the paragraph above it: the pull-quote that used
+               to sit here said this in words, so it came out when the diagram moved in. -->
+          <div class="signature" data-state="pass">
+            <p class="signature__label">How the work gets made</p>
+            <div class="pipeline">
+              <ol class="pipeline__stages">
+                <li class="pipeline__stage">Design</li>
+                <li class="pipeline__stage">Structured spec</li>
+                <li class="pipeline__stage">Tested component</li>
+              </ol>
+              <p class="state">
+                <span class="state__pending">Pending</span>
+                <span class="state__pass">Pass</span>
+              </p>
+            </div>
+            <p class="readout">
+              <span class="readout__label">Component build time</span>
+              <span class="readout__delta">
+                <span class="readout__was">1–2 days</span>
+                <span class="readout__arrow" aria-hidden="true">▸</span>
+                <span class="readout__now">1–2 hours</span>
+              </span>
             </p>
+          </div>
+
+          <div class="prose">
             <p>
               The work spans AI-powered dashboards, conversational interfaces, dynamic data visualisation, and reusable
               component architecture — with a consistent focus on clean code, performance, and maintainability.
-            </p>
-            <p>
-              Currently finishing Xyden, an adaptive leadership maturity assessment platform for senior executives — a
-              six-month scope delivered in two through an agentic UI pipeline.
             </p>
           </div>
           <p class="education">Education · B.Tech, Information Technology · Arunai College of Engineering</p>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="exp-h">
+      <section class="section" id="experience" data-nav-label="Experience" aria-labelledby="exp-h">
         <div class="shell">
           <h2 class="section__head" id="exp-h">Experience</h2>
 
@@ -236,41 +289,24 @@
             </div>
           </div>
 
+          <!-- Gtect and Asareri collapsed into one block: three employers and five roles
+               down to two and three, which puts the weight on the Ongil.ai years. Still a
+               .employer/.role pair, so the trace idiom and the spacing rules hold. -->
           <div class="employer">
-            <h3 class="employer__name">Gtect Systems</h3>
-            <p class="employer__meta">Full-time · 5 Years · Chennai, India</p>
+            <h3 class="employer__name">Early Career</h3>
+            <p class="employer__meta">Gtect Systems · Asareri Technologies · 2014–2021</p>
             <div class="role">
-              <p class="role__title">Senior UI Developer</p>
-              <p class="role__meta">Aug 2019 – Aug 2021</p>
+              <p class="role__title">UI Developer → Senior UI Developer</p>
               <p class="role__note">
-                Gathered requirements with business analysts and developed use cases for key functionality.
-              </p>
-            </div>
-            <div class="role">
-              <p class="role__title">UI Developer</p>
-              <p class="role__meta">Aug 2016 – Aug 2019</p>
-              <p class="role__note">
-                Built mobile-first responsive websites with HTML, CSS, jQuery, and Bootstrap, with cross-browser
-                compatibility.
-              </p>
-            </div>
-          </div>
-
-          <div class="employer">
-            <h3 class="employer__name">Asareri Technologies</h3>
-            <p class="employer__meta">2 Years 2 Months · Chennai, India</p>
-            <div class="role">
-              <p class="role__title">UI Developer</p>
-              <p class="role__meta">May 2014 – Jul 2016</p>
-              <p class="role__note">
-                Built mobile-first responsive websites and converted PSD designs into pixel-perfect HTML and CSS.
+                Built responsive, pixel-perfect interfaces from PSD designs and business requirements — the foundation
+                for the AI-driven frontend work that followed.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="work-h">
+      <section class="section" id="work" data-nav-label="Selected work" aria-labelledby="work-h">
         <div class="shell">
           <h2 class="section__head" id="work-h">Selected work</h2>
 
@@ -313,12 +349,14 @@
           </article>
 
           <p class="work__more">
-            <a href="Elavarasan_Projects_2026.pdf" download>Download the full project list · PDF</a>
+            <a href="Elavarasan_Projects_2026.pdf" download>
+              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>Download the full project list · PDF
+            </a>
           </p>
         </div>
       </section>
 
-      <section class="section award" aria-labelledby="award-h">
+      <section class="section award" id="recognition" data-nav-label="Recognition" aria-labelledby="award-h">
         <div class="shell">
           <h2 class="section__head" id="award-h">Recognition</h2>
           <figure class="award__figure">
@@ -345,7 +383,7 @@
       </section>
     </main>
 
-    <footer class="section contact" aria-labelledby="contact-h">
+    <footer class="section contact" id="contact" data-nav-label="Contact" aria-labelledby="contact-h">
       <div class="shell">
         <h2 class="section__head" id="contact-h">Contact</h2>
         <p class="contact__status"><span class="contact__flag">Open to collaboration</span></p>
@@ -354,29 +392,39 @@
         </p>
         <ul class="contact__list">
           <li>
-            <span class="contact__key">Email</span>
+            <span class="contact__key"><svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>Email</span>
             <a href="mailto:elavarasan.infotech10@gmail.com">elavarasan.infotech10@gmail.com</a>
           </li>
           <li>
-            <span class="contact__key">Phone</span>
+            <span class="contact__key"><svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg>Phone</span>
             <a href="tel:+918015515823">+91 8015515823</a>
           </li>
           <li>
-            <span class="contact__key">LinkedIn</span>
+            <span class="contact__key">
+              <svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg>LinkedIn
+            </span>
             <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">
               linkedin.com/in/elavarasanj
             </a>
           </li>
           <li>
-            <span class="contact__key">GitHub</span>
+            <span class="contact__key">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub
+            </span>
             <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">github.com/Elavarasan-J</a>
           </li>
           <li>
-            <span class="contact__key">Résumé</span>
+            <span class="contact__key">
+              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>Resume
+            </span>
             <a href="Elavarasan_Resume_2026.pdf" download>Download PDF · 2 MB</a>
           </li>
         </ul>
-        <p class="contact__cta"><a class="cta" href="mailto:elavarasan.infotech10@gmail.com">Send an email</a></p>
+        <p class="contact__cta">
+          <a class="cta" href="mailto:elavarasan.infotech10@gmail.com">
+            <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>Send an email
+          </a>
+        </p>
       </div>
     </footer>
 
@@ -436,5 +484,6 @@
     </script>
 
     <script src="main.js"></script>
+    <script src="scroll-effects.js"></script>
   </body>
 </html>
