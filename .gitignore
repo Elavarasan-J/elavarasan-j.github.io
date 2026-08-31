@@ -4,3 +4,6 @@
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Verification screenshots — not part of the site.
+full-page-screenshot.png
