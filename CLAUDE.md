@@ -7,6 +7,14 @@ only, never "looking for work" language.
 Design record: `docs/design-spec.md`
 Task breakdown: `docs/implementation-plan.md`
 
+## Working in this repo
+
+**Commit straight to `main`.** It is the deploy branch — GitHub Pages serves it
+from the repository root — so a feature branch only adds a merge step to a
+one-person repo. Do not create one on your own initiative; the owner will say so
+before the work starts on the occasions they want one. (Recorded 2026-09-03,
+after a pass was committed to a branch and had to be fast-forwarded back.)
+
 ## Hard constraints
 
 - **Exactly one HTML file: `index.html`.** This is a single-page site, and that is
