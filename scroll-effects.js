@@ -27,20 +27,32 @@
 
   /* Each entry is one cascade, resolved *within* each section, so a stagger
      never runs across a section boundary and the list needs no per-section
-     duplication. Sections matching none of these (the hero) simply get no
-     reveal, which is right: it is above the fold and already has the circuit.
+     duplication.
+
+     The hero is the first cascade rather than an exception: it is in view at
+     load, so the observer fires on the first frame and the intro assembles
+     itself top-down — portrait, meta, name, thesis, actions. That is the
+     page's on-load animation, and it is deliberately the *same* motion as
+     every other section's rather than a new one, so the motion budget stays
+     at three. Taken as `> *` so an element added to the intro joins the
+     cascade in markup order without a second list to keep in step.
 
      .employer is here rather than .role on purpose — .role draws the
      continuous left trace through an employer's promotions, and transforming
      each role separately would break that rule into one stub per role for the
      length of the animation. The employer block moves as one piece. */
   const REVEAL_GROUPS = [
+    '.hero__top > *',
     '.section__head',
     '.skills__top li',
     '.skills__group',
     '.skills__aside',
     '.prose',
-    '.signature',
+    /* One cascade for the whole run, badge included: querySelectorAll returns
+       document order, so the five stages light left to right and the terminus
+       arrives last — the reveal traces the same path the resolve does. */
+    '.pipeline__stage, .state',
+    '.payoff',
     '.education',
     '.employer',
     '.work',

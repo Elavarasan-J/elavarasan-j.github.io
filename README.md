@@ -3,8 +3,8 @@
 A single static page: Staff Engineer, 12+ years in enterprise frontend, specialising
 in agentic, test-driven UI generation.
 
-No framework, no build step, no dependencies. Three files, two images, and two
-PDFs.
+No framework, no build step, no dependencies. Four source files, two images, and
+two PDFs.
 
 ## Run it
 
@@ -24,7 +24,8 @@ itself works fine opened straight from disk.
 |---|---|
 | `index.html` | All content. Readable with CSS and JS disabled. |
 | `styles.css` | Design tokens, then layout, then components. |
-| `main.js` | Progressive enhancement only: live durations, the signature strip, the hero circuit. |
+| `main.js` | Progressive enhancement only: live durations, the process run, the hero circuit. |
+| `scroll-effects.js` | The section rail and the scroll reveal. Separate so the whole behaviour can be dropped by deleting one `<script>` tag. |
 | `elavarasan.jpeg` | Headshot, 200×200. |
 | `hoc.jpeg` | Hall of Fame certificate. |
 | `Elavarasan_Resume_2026.pdf` | Résumé, linked from the hero and Contact. Must stay tracked in git or the download link 404s on Pages. |

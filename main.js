@@ -40,17 +40,21 @@
 
   renderDurations(new Date());
 
-  /* ---------- signature: the passing build ----------
+  /* ---------- process: the passing build ----------
      The HTML ships data-state="pass" so no-JS and reduced-motion visitors get
      the finished state. Only when motion is welcome do we demote to pending
      and replay the resolve.
 
-     The strip moved out of the hero and into About on 2026-08-31, which put it
-     below the fold: replaying at load would spend the page's one orchestrated
-     moment on an empty screen. So the replay waits until the strip is actually
-     in view. Without IntersectionObserver it fires at load as before — a
-     resolve nobody saw beats a strip stuck on pending. */
+     The run is below the fold — the hero, Skills and About come first — so
+     replaying at load would spend the page's one orchestrated moment on an
+     empty screen. The replay waits until the diagram is actually in view.
+     Without IntersectionObserver it fires at load as before: a resolve nobody
+     saw beats a run stuck on pending. */
   const RESOLVE_DELAY_MS = 900;
+  const STAGE_STEP_MS = 200;
+  /* The beat the figure turns on. Long enough that the hollow node registers as
+     a state and not as a dropped frame. */
+  const RED_HOLD_MS = 650;
 
   function shouldAnimate(prefersReduced) {
     return !prefersReduced;
@@ -60,16 +64,71 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
+  /* Group the stages by the tick they light on. A stage carrying data-hold is
+     reached but does not light: it waits and then lights together with the
+     stage after it. That pairing is the point of the whole diagram — the node
+     named "red" turns green because green arrived — and it lives here rather
+     than in a hardcoded index so the markup stays free to move it.
+
+     Returns [{ stages, holds }] in order: `holds` says this tick is preceded by
+     a hold, so the group waits RED_HOLD_MS instead of one step. */
+  function lightGroups(stages) {
+    const groups = [];
+    let held = [];
+    for (const stage of stages) {
+      if ('hold' in stage.dataset) { held.push(stage); continue; }
+      groups.push({ stages: held.concat(stage), holds: held.length > 0 });
+      held = [];
+    }
+    /* A trailing hold has no stage to pass it, so it lights on its own rather
+       than sitting hollow for good. */
+    if (held.length) groups.push({ stages: held, holds: true });
+    return groups;
+  }
+
   function playSignature() {
-    const sig = document.querySelector('.signature');
-    if (!sig) return;
+    const run = document.querySelector('.process');
+    if (!run) return;
     if (!shouldAnimate(prefersReducedMotion())) return;   // already "pass"
 
-    /* Only ever .signature and its dataset.state — the inner markup stays free
-       to change without touching this file. */
+    const stages = Array.prototype.slice.call(
+      run.querySelectorAll('.pipeline__stage'));
+
+    /* This file touches .process's dataset.state and the stages' data-done /
+       data-current, and nothing else — never their text, never the badge, never
+       the readout. The section's markup stays free to change around those three
+       attributes. */
     function resolve() {
-      sig.dataset.state = 'pending';
-      window.setTimeout(() => { sig.dataset.state = 'pass'; }, RESOLVE_DELAY_MS);
+      run.dataset.state = 'pending';
+      for (const stage of stages) {
+        delete stage.dataset.done;
+        delete stage.dataset.current;
+      }
+
+      let t = RESOLVE_DELAY_MS;
+      for (const group of lightGroups(stages)) {
+        if (group.holds) {
+          /* Mark the held stage reached-and-not-passing, then hold. The badge
+             stays pending through this, which is what makes it read as red. */
+          const held = group.stages.filter(s => 'hold' in s.dataset);
+          window.setTimeout(() => {
+            for (const s of held) s.dataset.current = '';
+          }, t);
+          t += RED_HOLD_MS;
+        }
+        const lighting = group.stages;
+        window.setTimeout(() => {
+          for (const s of lighting) {
+            delete s.dataset.current;
+            s.dataset.done = '';
+          }
+        }, t);
+        t += STAGE_STEP_MS;
+      }
+
+      /* PASS is the outcome of the whole run, so the badge resolves once every
+         stage has lit — after "Tested component", where the trace ends. */
+      window.setTimeout(() => { run.dataset.state = 'pass'; }, t);
     }
 
     if (!('IntersectionObserver' in window)) { resolve(); return; }
@@ -81,7 +140,7 @@
         resolve();
       }
     }, { rootMargin: '0px 0px -15% 0px' });
-    io.observe(sig);
+    io.observe(run);
   }
 
   playSignature();
@@ -256,7 +315,8 @@
 
   window.__profile = {
     CAREER_START, monthsBetween, formatTenure, tenureAt, renderDurations,
-    shouldAnimate, RESOLVE_DELAY_MS,
+    shouldAnimate, lightGroups,
+    RESOLVE_DELAY_MS, STAGE_STEP_MS, RED_HOLD_MS,
     TRACE_CAP, traceCount, buildTraces, seeded
   };
 })();

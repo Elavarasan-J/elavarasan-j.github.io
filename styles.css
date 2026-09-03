@@ -6,28 +6,40 @@
 
 /* ---------- tokens ---------- */
 :root {
-  --void:   #000000;
-  --moss:   #0A2A16;
-  --signal: #00E24A;
+  --void: #000000;
+  --signal: #00e24a;
   /* Second intensity of the same hue — never a new colour. Structure and
      labels live here so the bright --signal reads as *the* signal again:
      state, claims, and figures only. 6.3:1 on the void, so it still clears
      AA at the 13px the mono labels use. */
   --signal-dim: color-mix(in srgb, var(--signal) 72%, var(--void));
-  --glow:   #7CFFA8;
-  --paper:  #EAF3EC;
-  --muted:  #8FA396;
-  --brass:  #C79A3C;
+  --glow: #7cffa8;
+
+  /* The ground of the one panel on the page: the void with a breath of the
+     primary in it. It replaced a flat --moss slab on 2026-09-02 — the slab was
+     the only filled, soft-edged thing on a page made of hairlines and type, and
+     it cost every ratio inside it. Derived from --signal like every other tier,
+     so the panel follows the primary.
+
+     8% is a measured ceiling, not a taste: --muted on this ground computes
+     7.20:1 and crosses below the page's 7:1 floor between 9% and 10%. It went
+     up from 5% when the substrate grid arrived, because a grid drawn in the
+     void has to have something to subtract from. Do not raise it past 9%
+     without re-measuring the ratios in the payoff panel. */
+  --panel: color-mix(in srgb, var(--signal) 8%, var(--void));
+  --paper: #eaf3ec;
+  --muted: #8fa396;
+  --brass: #c79a3c;
 
   /* Hairlines carry the primary too, so the green reads as the page's material
      rather than as occasional highlights. */
   --line: color-mix(in srgb, var(--signal) 24%, transparent);
 
-  --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  --font-body:    'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-mono:    'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  --step-0: 1.1875rem;                    /* 19px body */
+  --step-0: 1.1875rem; /* 19px body */
   --step-1: 1.375rem;
   --step-2: 1.75rem;
   --step-3: clamp(1.75rem, 3.4vw, 2.5rem);
@@ -41,17 +53,43 @@
   --space-6: 6rem;
 
   --measure: 62ch;
-  --shell:   68rem;
-  --gutter:  clamp(1.25rem, 5vw, 3rem);
+  --shell: 68rem;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
 }
 
 /* ---------- reset ---------- */
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; }
-h1, h2, h3, p, ol, ul, figure, blockquote { margin: 0; }
-ol, ul { padding: 0; list-style: none; }
-img, svg, canvas { display: block; max-width: 100%; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+p,
+ol,
+ul,
+figure,
+blockquote {
+  margin: 0;
+}
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
 
 /* ---------- base type ---------- */
 body {
@@ -59,7 +97,7 @@ body {
   color: var(--paper);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  font-variation-settings: 'opsz' 20, 'wght' 450;
+  font-variation-settings: "opsz" 20, "wght" 450;
   line-height: 1.65;
   overflow-x: hidden;
 }
@@ -68,7 +106,9 @@ body {
   max-width: var(--measure);
   color: var(--paper);
 }
-.prose p + p { margin-top: var(--space-3); }
+.prose p + p {
+  margin-top: var(--space-3);
+}
 
 /* About's pull-quote is gone: it said in words what the process visual now
    shows, and the two together was the same claim twice. */
@@ -102,7 +142,8 @@ body {
 /* Utility face: labels, dates, stack, readouts. Never body copy. */
 .hero__meta,
 .hero__actions,
-.pipeline,
+.pipeline__index,
+.pipeline__sources,
 .state,
 .readout,
 .employer__meta,
@@ -160,7 +201,22 @@ body {
     font-size: var(--step-1);
     letter-spacing: -0.01em;
   }
-  .section > .shell > *:not(.section__head) { grid-column: 2; }
+  .section > .shell > *:not(.section__head) {
+    grid-column: 2;
+  }
+
+  /* One exception, and it is the process diagram: five stages read across need
+     the whole shell, and column 2 is 704px at the widest the page ever gets.
+     A diagram is not prose, so it spans the rail column too and the section
+     reads as a full-width band under its own head.
+
+     Same specificity as the rule above (:not() takes its argument's), so this
+     has to stay *after* it — it wins on source order, not weight. The head is
+     still sticky and still cannot reach the band: a grid item's sticky travel
+     is bounded by its grid area, which here is row 1 alone. */
+  .section--band > .shell > .process {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ---------- icons ----------
@@ -201,9 +257,12 @@ a {
   color: var(--paper);
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--signal) 45%, transparent);
-  transition: color .18s ease, border-color .18s ease;
+  transition: color 0.18s ease, border-color 0.18s ease;
 }
-a:hover { color: var(--signal); border-bottom-color: var(--signal); }
+a:hover {
+  color: var(--signal);
+  border-bottom-color: var(--signal);
+}
 
 /* ---------- scrollbar ----------
    The browser default is a light-grey slab down the edge of a black page, and
@@ -263,7 +322,10 @@ html {
   border: 0;
   font-family: var(--font-mono);
 }
-.skip:focus { left: var(--space-2); top: var(--space-2); }
+.skip:focus {
+  left: var(--space-2);
+  top: var(--space-2);
+}
 
 /* ---------- hero ---------- */
 /* Centred, not top-anchored: the signature strip moved to About, so the intro
@@ -325,7 +387,9 @@ html {
   filter: saturate(0.9) contrast(1.05);
 }
 
-.hero__meta { margin-bottom: var(--space-2); }
+.hero__meta {
+  margin-bottom: var(--space-2);
+}
 
 .hero__thesis {
   margin-top: var(--space-3);
@@ -359,10 +423,16 @@ html {
   align-items: center;
   gap: var(--space-3);
 }
-.hero__actions a:not(.cta) { border-bottom-color: var(--line); }
-.hero__actions a:not(.cta):hover { border-bottom-color: var(--signal); }
+.hero__actions a:not(.cta) {
+  border-bottom-color: var(--line);
+}
+.hero__actions a:not(.cta):hover {
+  border-bottom-color: var(--signal);
+}
 
-#tenure { color: var(--signal); }
+#tenure {
+  color: var(--signal);
+}
 
 /* ---------- skills: the first thing after the hero ---------- */
 .skills__top {
@@ -387,9 +457,14 @@ html {
   border-radius: 999px;
 }
 
-.skills__groups { display: grid; gap: var(--space-5) var(--space-4); }
+.skills__groups {
+  display: grid;
+  gap: var(--space-5) var(--space-4);
+}
 @media (min-width: 40rem) {
-  .skills__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skills__groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 /* No rule under the group heads — tried on 2026-08-26 and removed the same day
    on the owner's call. What anchors the four categories is the --space-5 row gap
@@ -398,7 +473,9 @@ html {
   color: var(--signal-dim);
   margin-bottom: var(--space-2);
 }
-.skills__groups dd { margin: 0; }
+.skills__groups dd {
+  margin: 0;
+}
 
 /* One size down from the mono utility default so the groups carry more skills
    per row without becoming a wall of chips. Still the same pill as
@@ -418,83 +495,66 @@ html {
 }
 
 @media (max-width: 34rem) {
-  .hero__portrait { width: 96px; height: 96px; }
+  .hero__portrait {
+    width: 96px;
+    height: 96px;
+  }
   /* Keep "1–2 days ▸ 1–2 hours" on one line by dropping the label above it,
      so the comparison never splits. */
-  .readout__label { flex: 1 0 100%; }
+  .readout__label {
+    flex: 1 0 100%;
+  }
   /* At 360px the expanded name overruns the gutter and gets clipped by the
      hero's overflow. Narrow the width axis and step the size down so it fits. */
   .hero__name {
     font-size: clamp(1.85rem, 10.5vw, 3rem);
-    font-variation-settings: 'wdth' 100, 'wght' 700;
+    font-variation-settings: "wdth" 100, "wght" 700;
   }
-  .hero__thesis { font-size: var(--step-1); line-height: 1.4; }
+  .hero__thesis {
+    font-size: var(--step-1);
+    line-height: 1.4;
+  }
 }
 
 /* ==========================================================================
-   Signature: the passing build.
+   Process: the passing build.
    Green means verified — in TDD, green is the passing state, which is the idea
    the whole page is built on. The badge going green is the moment it is stated
    outright.
 
-   An inline figure inside About since 2026-08-31, sitting directly under the
-   paragraph it illustrates; it was the hero's bottom band before that, which is
-   why the rest of this block reads as if it owned a full-width strip. Space,
-   not a border, sets it apart — it is part of the argument in the prose above
-   it, not a separate exhibit. Weight still comes through space rather than type
-   size, so the stage labels never compete with .readout__now.
+   Its own section since 2026-09-03. It was an inline figure inside About from
+   2026-08-31, and the hero's bottom band before that. Promoting it was rejected
+   once, on the grounds that detaching the run from the specialism paragraph
+   costs more than the prominence buys — the owner reversed that when the run
+   grew a sentence per stage, which is content the reading column had no room
+   for. The adjacency survives: Process is the section directly after About.
+
+   Two things moved with it. The stages now carry a name and an explanation
+   instead of a label, so they read to someone who has never heard of BDD; and
+   the frame came off the block and went round the payoff alone, because a
+   section does not need to be marked as a figure — it already is one.
    ========================================================================== */
-.signature {
-  position: relative;
-  isolation: isolate;
-  /* --moss, finally spent. It was reserved in the palette as "available for
-     depth" and this is the depth it was reserved for: the one block in the
-     reading column that is a diagram rather than prose, lifted off the void so
-     it reads as a figure. This is the only panel on the page — the rule that
-     content sections stay flat --void still holds; a section is not a figure.
 
-     Kept to --moss and nothing else: no gradient, no border, no shadow. The
-     ground changing is the whole signal, and anything more would make it a
-     card. Padding is on the panel, so the strip's internal spacing is
-     untouched. */
-  background: var(--moss);
-  padding: var(--space-4);
-}
-.prose + .signature { margin-top: var(--space-5); }
-.signature + .prose { margin-top: var(--space-5); }
-
-@media (max-width: 34rem) {
-  .signature { padding: var(--space-3); }
-}
-
-.signature__label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  /* Still the structural tier — the primary at 72% — but mixed against the
-     ground it actually sits on. --signal-dim is 72% of the *void*, and on the
-     moss panel that computed 4.63:1, the weakest thing in the block. Against
-     moss it is 5.25:1 and still clearly a step below the bright tier, so the
-     PASS badge and the 1-2 hours figure keep the signal to themselves.
-     Promoting the label to --signal was the other option and was rejected: it
-     would have put a label in the tier reserved for state and figures. */
-  color: color-mix(in srgb, var(--signal) 72%, var(--moss));
-  margin-bottom: var(--space-3);
+/* The figure. No ground and no frame of its own: the one panel left on the
+   page is .payoff below. It exists to carry two things — the run's state, which
+   the whole block reads from, and the container query the horizontal layout is
+   gated on. */
+.process {
+  container-type: inline-size;
+  margin-top: var(--space-5);
 }
 
 /* ---------- pipeline: stages as nodes on one trace ----------
-   The same node-on-a-trace idiom as .role in Experience, rotated. Vertical by
-   default, horizontal from 48rem. The stages are a real sequence, so drawing
-   them as one connected run says something true rather than decorating.
-   Rotating at narrow widths also kills the old bug where the inline '→'
-   separators wrapped and left an arrow at line-start pointing at nothing. */
+   The same node-on-a-trace idiom as .role in Experience. Vertical is the base
+   case and the one that survives at every width; the horizontal run is an
+   enhancement the container query grants when the box is genuinely wide enough
+   for five columns, which is the only place it is legible. */
 .pipeline {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: var(--space-4);
+  /* No gap: the badge has to sit directly under the last stage so its elbow
+     picks the trace up exactly where the stage's rule ends. */
 }
 .pipeline__stages {
   display: flex;
@@ -504,80 +564,383 @@ html {
 .pipeline__stage {
   position: relative;
   padding-left: var(--space-3);
-  padding-bottom: var(--space-3);
+  padding-bottom: var(--space-4);
   border-left: 1px solid var(--line);
-  color: var(--muted);
-  transition: color .5s ease;
+  max-width: var(--measure);
+  transition: border-left-color 0.5s ease;
 }
-/* The node. Unlit until the build resolves — muted, never red. */
+/* The trace stops short under the last node rather than dangling, so the
+   badge's elbow is the next thing the run reaches. */
+.pipeline__stage:last-child {
+  padding-bottom: var(--space-3);
+}
+
+/* The node. Unlit is the resting state — muted, never red. Aligned to the
+   index's line box rather than to an em of the stage box, which is now serif
+   body size and would sit the node a line too low. */
 .pipeline__stage::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -4px;
-  top: 0.45em;
+  top: 0.3rem;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--muted);
-  transition: background-color .5s ease, box-shadow .5s ease;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
-.signature[data-state="pass"] .pipeline__stage { color: var(--paper); }
-.signature[data-state="pass"] .pipeline__stage::before {
+
+/* The stage number. Visual only — the <ol> already numbers these for a screen
+   reader, so the span is aria-hidden and this is the printed index on a
+   schematic, not a second list. */
+.pipeline__index {
+  display: block;
+  font-size: 0.75rem;
+  transition: color 0.5s ease;
+}
+
+/* Display face, like every other name-level heading on the page. One step
+   below the mono utility default in weight terms and well below the reading
+   serif in size: five of these across a band, at --step-0, would be a row of
+   headlines competing with the section's own. */
+.pipeline__name {
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  transition: color 0.5s ease;
+}
+
+/* The sentence that makes the stage mean something. Reading serif, because any
+   sentence on this page that is not .skills__aside-note is set in the serif,
+   and --muted rather than --paper because the state contrast belongs to the
+   name above it: an unlit stage has to differ from a lit one, and if the
+   explanation moved too the whole column would flicker. 7.85:1 on the void. */
+.pipeline__note {
+  margin-top: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* The three inputs the run starts from. One step below the stage name and in
+   the mono utility group, exactly the pairing .skills__aside-note uses: the
+   stage names itself, this qualifies it. Uppercase is inherited and right here
+   — it is a list of input kinds, not a sentence.
+
+   Deliberately not icons and not chips. Icons on this page mark controls and
+   channels only, and the badge system has exactly two shapes, neither of which
+   means "an input". A caption adds no vocabulary. */
+.pipeline__sources {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* ---------- stage state: the red phase, drawn without a red ----------
+   This is the figure's whole argument, so it is worth stating plainly. The
+   palette has no red and must not gain one, and it turns out never to have
+   needed one: green on this page means verified, so *not* green already means
+   not-yet-verified — which is precisely the red phase.
+
+   Three states, and only the middle one is new:
+     (unlit)       not reached. Muted name, muted index, muted node, --line
+                   trace.
+     data-current  reached and NOT passing. Name lit, node hollow, badge still
+                   pending. This is red.
+     data-done     passed. Node lit with the glow .role::before carries, and
+                   the trace behind it lit to the structural tier.
+
+   data-done ships in the markup on every stage, so no-JS and reduced-motion
+   visitors get the finished run with no script at all. */
+.pipeline__stage[data-done] {
+  /* The trace carries state, so it moves into the tier system: --line where
+     the run has not reached, --signal-dim behind it where it has. The
+     structural tier, because a trace is structure — the lit nodes and the
+     badge are what sit in --signal. */
+  border-left-color: var(--signal-dim);
+}
+.pipeline__stage[data-done] .pipeline__name {
+  color: var(--paper);
+}
+.pipeline__stage[data-done] .pipeline__index {
+  color: var(--signal-dim);
+}
+.pipeline__stage[data-done]::before {
   background: var(--signal);
   box-shadow: 0 0 10px color-mix(in srgb, var(--signal) 70%, transparent);
 }
 
-/* ---------- state badge: the terminus of the trace ---------- */
+/* Reached, not passing. A hollow node: the position is marked, the state is
+   not lit. The ring is inset rather than a border so the node's 7px box does
+   not change size and nothing below it moves.
+
+   This is the page's one ringed node, and it is a deliberate exception to the
+   rail's "idle dots are filled dim, with no ring" rule. That rule is about
+   eight persistent rings sitting beside labels reading as busy; this is one
+   ring, transient, alive only during the replay, and it is the only mark on
+   the page that has to say "here, and not passing". Nothing else can: a
+   filled --muted node is indistinguishable from a stage the run has not
+   reached, which is exactly the distinction the red phase is made of. */
+.pipeline__stage[data-current] .pipeline__name {
+  color: var(--paper);
+}
+.pipeline__stage[data-current]::before {
+  background: var(--void);
+  box-shadow: inset 0 0 0 1px var(--muted);
+}
+
+/* ---------- state badge: the terminus of the trace ----------
+   Both words are stacked in one grid cell and swapped with visibility rather
+   than display, so the badge is always as wide as the longer of them. It sizes
+   the run's last column in the horizontal layout, and PENDING is 36px wider
+   than PASS: with display:none the whole grid would jump twice during the
+   replay, once on the demote and once on the resolve. visibility also keeps the
+   hidden word out of the accessibility tree, which display:none did. */
 .state {
   position: relative;
+  display: inline-grid;
+  justify-items: center;
   margin-left: var(--space-3);
   padding: 0.3rem 0.7rem;
   border: 1px solid var(--line);
   color: var(--muted);
-  transition: color .4s ease, background-color .4s ease,
-              border-color .4s ease, box-shadow .4s ease;
+  transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-@media (min-width: 48rem) {
-  .pipeline {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-4);
-  }
-  .pipeline__stages {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-4);
-  }
-  .pipeline__stage {
-    padding-left: var(--space-2);
-    padding-bottom: 0;
-    border-left: 0;
-  }
-  .pipeline__stage::before { top: 50%; transform: translateY(-50%); }
-  /* Connectors span the flex gap, turning the row into one continuous run. */
-  .pipeline__stage:not(:last-child)::after,
-  .state::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    /* Must equal the flex gap above or the run stops short of the next node. */
-    width: var(--space-4);
-    height: 1px;
-    background: var(--line);
-  }
-  .pipeline__stage:not(:last-child)::after { left: 100%; }
-  .state::before { right: 100%; }
-  .state { margin-left: 0; }
+/* The trace has to turn a corner to reach the badge, which sits indented to
+   the stage names' x. Without this the run stopped in mid-air beside the
+   badge — the same defect as the old '→' pointing at nothing. One element
+   draws the whole elbow: a left border picking the trace up at the badge's top
+   edge, exactly where the last stage's rule ends, and a bottom border carrying
+   it across into the badge's own edge. */
+.state::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  bottom: 50%;
+  width: var(--space-3);
+  height: 50%;
+  border-left: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.4s ease;
 }
-.state__pass { display: none; }
-.signature[data-state="pass"] .state__pending { display: none; }
-.signature[data-state="pass"] .state__pass { display: inline; }
-.signature[data-state="pass"] .state {
+
+.state__pending,
+.state__pass {
+  grid-area: 1 / 1;
+}
+.state__pass {
+  visibility: hidden;
+}
+.process[data-state="pass"] .state__pending {
+  visibility: hidden;
+}
+.process[data-state="pass"] .state__pass {
+  visibility: visible;
+}
+.process[data-state="pass"] .state {
   color: var(--void);
   background-color: var(--signal);
   border-color: var(--signal);
   box-shadow: 0 0 28px color-mix(in srgb, var(--signal) 55%, transparent);
+}
+/* The elbow lights with the badge it feeds, so the run reads as continuous
+   right into the terminus rather than stopping at a dim corner. */
+.process[data-state="pass"] .state::before {
+  border-left-color: var(--signal-dim);
+  border-bottom-color: var(--signal-dim);
+}
+
+/* ---------- the run laid out across ----------
+   Five stages down a rail reads as a build log; five stages across reads as
+   the pipeline it is named after, and it is the only arrangement that puts a
+   stage's explanation directly under its node. It needs real column width to
+   do that, so it is gated rather than assumed.
+
+   Gated on a CONTAINER query, not a media query. The section is a band, so the
+   diagram's width is the shell's inner width at every viewport — measured 992px
+   at 1440, 918px at 1024, 917px at 1023 — and unlike the old in-column figure it
+   is monotonic, which means a media query *would* work. The container query is
+   still the right tool: it asks the question the layout actually has ("is this
+   box wide enough for five columns"), and it re-answers itself for free if the
+   shell, the gutters or the band rule ever change.
+
+   The threshold is measured. The longest stage name, "Tested component", is
+   145px at 1rem in the display face; the badge is a fixed 84px — see .state —
+   plus a --space-3 connector. Five columns and four 16px gaps out of a 57rem
+   (912px) box leaves 148px each, which is the tightest width that still holds
+   every name on one line — and 912px of container is a ~1018px viewport, since
+   the scrollbar takes ~10px. At 1024 the box is 918px and columns are 149px; at
+   1440, 164px. The stages are a subgrid anyway, so a name that does wrap on
+   some other font stack costs alignment nothing.
+
+   Below the gate the vertical trace is what ships, and it is known good to
+   360px. */
+@container (min-width: 57rem) {
+  .pipeline {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-3);
+    /* Room for the half of the badge that sits above the trace line. */
+    padding-top: 1rem;
+  }
+  .pipeline__stages {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* index / name / note / sources. Named as rows on the parent and taken as
+       a subgrid by each stage so the four registers line up across all five
+       columns even when one name wraps and another does not. Without subgrid
+       the stages simply stack their own rows — the layout still reads, the
+       notes just no longer share a baseline. */
+    grid-template-rows: auto auto 1fr auto;
+    /* --space-2, not --space-3, and it is measured: 24px gaps leave 143px per
+       column at 1024 and "Tested component" needs 145px, so the fifth name
+       wrapped on the commonest laptop width. 16px buys 148px and clears it.
+       The gap to the badge stays --space-3, because that one is the length of
+       the trace segment running into the terminus and has to read as a run of
+       line rather than as a column gap. */
+    column-gap: var(--space-2);
+  }
+  /* :last-child too, or the vertical layout's trailing rule below keeps its
+     padding-bottom here on a higher specificity — harmless today only because
+     the first stage happens to be the tallest cell. */
+  .pipeline__stage,
+  .pipeline__stage:last-child {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    max-width: none;
+    padding: var(--space-3) 0 0;
+    border-left: 0;
+    /* The trace turns ninety degrees with the run: each stage's rule is the
+       segment that leaves its own node, so the lit-behind-a-passed-stage
+       behaviour is unchanged. */
+    border-top: 1px solid var(--line);
+    transition: border-top-color 0.5s ease;
+  }
+  .pipeline__stage[data-done] {
+    border-top-color: var(--signal-dim);
+  }
+  /* The node moves onto the line it now sits on. */
+  .pipeline__stage::before {
+    left: 0;
+    top: -4px;
+  }
+
+  /* Centred on the trace rather than indented under it: the run is horizontal,
+     so the terminus is at the right-hand end of the line.
+
+     The lift is declared as --reveal-offset rather than as a plain transform,
+     because .state is a reveal target and `.js-reveal .reveal.is-visible {
+     transform: none }` outranks this rule three classes to one. It did: once
+     the reveal finished, the badge and its connector dropped 16.5px and the
+     trace stopped in mid-air above a stub — the same defect as the old '→'
+     pointing at nothing, and invisible under reduced motion, where the reveal
+     never runs and the gap measures a clean 0. The reveal composes with this
+     value now; see the scroll reveal block. */
+  .state {
+    align-self: start;
+    margin-left: 0;
+    --reveal-offset: translateY(-50%);
+    transform: var(--reveal-offset);
+  }
+  /* No corner to turn — the trace runs straight into the badge. */
+  .state::before {
+    top: 50%;
+    bottom: auto;
+    height: 0;
+    border-left: 0;
+    border-bottom: 0;
+    border-top: 1px solid var(--line);
+  }
+  .process[data-state="pass"] .state::before {
+    border-top-color: var(--signal-dim);
+  }
+}
+
+/* ==========================================================================
+   The payoff panel — the page's one panel.
+   The frame used to go round the whole figure. It goes round the number now:
+   once the run has a section of its own, marking the section as a figure says
+   nothing, while marking the number says "this is the measurement". Same
+   material either way — a 1px --line frame, the same weight as the portrait
+   frame and the role trace, over a ground that is the void with a breath of
+   green in it. Still no shadow and no gradient: the frame is an edge, not a
+   lift, and a shadow is what would make it a card.
+   ========================================================================== */
+.payoff {
+  position: relative;
+  isolation: isolate;
+  margin-top: var(--space-5);
+  background-color: var(--panel);
+  /* The substrate. Two grids on the circuit's own 68px pitch — the major one
+     at 68, the minor at 68/4 — which is what makes this panel read as a slice
+     of the same board the hero draws its traces on rather than a box with a
+     texture in it. That pitch is the echo, so it is deliberately the number
+     from GRID in main.js; the phase is not, and does not need to be, since the
+     canvas is anchored to the viewport and this to the panel.
+
+     Every line is drawn in --void, never in the primary: the pattern is
+     subtractive, so it can only make the ground darker than the flat value
+     that --panel was measured at. That is what keeps a repeating pattern from
+     costing contrast — a lit node at any visible strength lands behind a glyph
+     eventually (measured: --muted over one at 16% falls to 5.63:1), and there
+     is no way to guarantee a phase that misses text. Dark lines cannot. */
+  background-image: linear-gradient(to right, color-mix(in srgb, var(--void) 72%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--void) 72%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in srgb, var(--void) 42%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--void) 42%, transparent) 1px, transparent 1px);
+  background-size: 68px 68px, 68px 68px, 17px 17px, 17px 17px;
+  border: 1px solid var(--line);
+  /* Tighter on the block axis than on the inline: the panel is a full-width
+     strip holding one line, and square --space-4 padding left it reading as a
+     mostly empty box rather than as a readout. */
+  padding: var(--space-3) var(--space-4);
+}
+
+/* The legend sits on the frame's top edge, interrupting it — the legend on an
+   engineering drawing, which is what this block is. Absolute, so the panel's
+   own padding holds the space it would occupy in flow, and its background is
+   the panel ground, which is what cuts the hairline cleanly. It stays in the
+   structural tier: promoting a label to --signal was rejected, because that
+   tier belongs to state and figures, which here means the PASS badge and the
+   1-2 hours. Measured 5.76:1 against the panel. */
+.payoff__label {
+  position: absolute;
+  top: 0;
+  left: var(--space-4);
+  transform: translateY(-50%);
+  background: var(--panel);
+  padding-inline: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--signal-dim);
+}
+
+/* This has to sit after the two rules above, not up with the hero's own 34rem
+   block: same specificity, so source order decides, and from up there the
+   inline padding never applied. It is load-bearing rather than cosmetic — at
+   40px of inline padding the panel leaves 230px at 360px and the comparison
+   needs 232px, so "1–2 days ▸ 1–2 hours" wrapped and the figure lost the size
+   contrast that is its whole argument. */
+@media (max-width: 34rem) {
+  .payoff {
+    padding: var(--space-3);
+  }
+  /* The legend tracks the panel's padding so it stays over the first column of
+     content rather than floating in from the corner. */
+  .payoff__label {
+    left: var(--space-3);
+  }
 }
 
 /* ---------- readout: the payoff ----------
@@ -585,15 +948,19 @@ html {
    13px as a date stamp. It is promoted to --step-2 — the size of the hero
    thesis line, deliberately: the thesis states the claim, this proves it. Still
    well below the name, which stays the only thing at --step-4. The struck
-   "1-2 days" beside it stays small; the contrast is what persuades. */
+   "1-2 days" beside it stays small; the contrast is what persuades.
+
+   One row now the panel is a full-width strip: label, then the comparison, on
+   one baseline. It wraps rather than shrinks. */
 .readout {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-1);
-  margin-top: var(--space-4);
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-4);
 }
-.readout__label { color: var(--muted); }
+.readout__label {
+  color: var(--muted);
+}
 .readout__delta {
   display: flex;
   flex-wrap: wrap;
@@ -605,7 +972,9 @@ html {
   text-decoration: line-through;
   text-decoration-color: color-mix(in srgb, var(--muted) 60%, transparent);
 }
-.readout__arrow { color: var(--signal); }
+.readout__arrow {
+  color: var(--signal);
+}
 .readout__now {
   font-family: var(--font-display);
   font-size: var(--step-2);
@@ -619,7 +988,12 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .pipeline__stage,
   .pipeline__stage::before,
-  .state { transition: none; }
+  .pipeline__name,
+  .pipeline__index,
+  .state,
+  .state::before {
+    transition: none;
+  }
 }
 
 /* Third tier of Skills: the rest of the stack, stated as breadth. Separated by
@@ -627,7 +1001,9 @@ html {
    it is a weaker claim, not a fifth category. The note carries that in words —
    body serif in --paper, because it is a sentence, and prose on this page is
    never mono and never green. */
-.skills__aside { margin-top: var(--space-5); }
+.skills__aside {
+  margin-top: var(--space-5);
+}
 .skills__aside-head {
   /* An h3 defaults to bold; the dt heads above it do not, and these two are the
      same kind of label. */
@@ -653,7 +1029,9 @@ html {
 }
 
 /* ---------- experience ---------- */
-.employer + .employer { margin-top: var(--space-5); }
+.employer + .employer {
+  margin-top: var(--space-5);
+}
 /* Employer and work names are the top item of their section, so they sit a
    step above the role titles beneath them. Before .role__title moved into the
    display face they were all --step-1 and the levels read as one. */
@@ -661,7 +1039,9 @@ html {
   font-size: var(--step-2);
   margin-bottom: var(--space-1);
 }
-.employer__meta { margin-bottom: var(--space-3); }
+.employer__meta {
+  margin-bottom: var(--space-3);
+}
 
 /* The role rule and its node echo the hero circuit: each role is a junction on
    the same trace. */
@@ -671,7 +1051,7 @@ html {
   border-left: 1px solid color-mix(in srgb, var(--signal) 45%, transparent);
 }
 .role::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -4px;
   top: 0.6em;
@@ -691,7 +1071,9 @@ html {
 }
 /* The node is positioned from the padding box, so it has to clear that padding
    to stay level with the role title. */
-.role + .role::before { top: calc(var(--space-4) + 0.6em); }
+.role + .role::before {
+  top: calc(var(--space-4) + 0.6em);
+}
 /* Display face, one step below the employer above it. This was the page's one
    genuine typography break: every other name-level heading is Space Grotesk
    and this alone sat in the body serif. */
@@ -701,7 +1083,9 @@ html {
   line-height: 1.15;
   margin-bottom: var(--space-1);
 }
-.role__meta { margin-bottom: var(--space-1); }
+.role__meta {
+  margin-bottom: var(--space-1);
+}
 .role__note {
   margin-top: var(--space-2);
   max-width: var(--measure);
@@ -710,10 +1094,14 @@ html {
 
 /* Colour comes from the mono utility group above — same muted tone as the
    employer meta lines. Do not override it. */
-.education { margin-top: var(--space-5); }
+.education {
+  margin-top: var(--space-5);
+}
 
 /* ---------- selected work ---------- */
-.work { max-width: var(--measure); }
+.work {
+  max-width: var(--measure);
+}
 .work + .work {
   margin-top: var(--space-4);
   padding-top: var(--space-4);
@@ -731,8 +1119,12 @@ html {
    wins: in the hero's 34rem block it was overridden and did nothing. */
 @media (max-width: 34rem) {
   .employer__name,
-  .work__name { font-size: var(--step-1); }
-  .role__title { font-size: var(--step-0); }
+  .work__name {
+    font-size: var(--step-1);
+  }
+  .role__title {
+    font-size: var(--step-0);
+  }
 }
 /* ---------- badge system: two shapes, and only two ----------
    Pill (radius 999px) = a skill. Filled is the highlight tier (.skills__top),
@@ -753,7 +1145,9 @@ html {
   vertical-align: middle;
 }
 .work__flag,
-.employer__flag { margin-left: var(--space-2); }
+.employer__flag {
+  margin-left: var(--space-2);
+}
 
 /* Filled rect, the affirmative state — same shape as .state on pass. */
 .cta {
@@ -762,17 +1156,26 @@ html {
   border: 1px solid var(--signal);
   background: var(--signal);
   color: var(--void);
-  transition: background-color .18s ease, color .18s ease;
+  transition: background-color 0.18s ease, color 0.18s ease;
 }
 .cta:hover {
   background: transparent;
   color: var(--signal);
   border-color: var(--signal);
 }
-.work__client { color: var(--signal); margin-bottom: var(--space-2); }
-.work__desc { margin-bottom: var(--space-2); }
-.work__stack { margin-bottom: var(--space-1); }
-.work__outcome { color: var(--paper); }
+.work__client {
+  color: var(--signal);
+  margin-bottom: var(--space-2);
+}
+.work__desc {
+  margin-bottom: var(--space-2);
+}
+.work__stack {
+  margin-bottom: var(--space-1);
+}
+.work__outcome {
+  color: var(--paper);
+}
 
 /* Mirrors the .work + .work separator so the link reads as the tail of the
    list rather than a stray element. The reset zeroes p margins, so without
@@ -785,7 +1188,9 @@ html {
 
 /* Structural label, so it takes the dim tier. --signal stays on the work
    client names, the tenure figure, the state badge and the readout. */
-.contact__key { color: var(--signal-dim); }
+.contact__key {
+  color: var(--signal-dim);
+}
 
 /* ---------- recognition: the only warm note on the page ---------- */
 /* Single column: inside the rail layout the content column is not wide enough
@@ -814,25 +1219,38 @@ html {
   color: var(--brass);
   margin-bottom: var(--space-1);
 }
-.award__org { margin-bottom: var(--space-3); }
+.award__org {
+  margin-bottom: var(--space-3);
+}
 .award__citation {
   padding-left: var(--space-3);
   border-left: 1px solid color-mix(in srgb, var(--brass) 45%, transparent);
   max-width: var(--measure);
 }
-.award__citation p { font-style: italic; }
-.award__signatories { margin-top: var(--space-3); }
+.award__citation p {
+  font-style: italic;
+}
+.award__signatories {
+  margin-top: var(--space-3);
+}
 
 /* ---------- contact ---------- */
-.contact__status { margin-bottom: var(--space-2); }
-.contact__cta { margin-top: var(--space-4); }
+.contact__status {
+  margin-bottom: var(--space-2);
+}
+.contact__cta {
+  margin-top: var(--space-4);
+}
 
 .contact__availability {
   max-width: var(--measure);
   font-size: var(--step-1);
   margin-bottom: var(--space-4);
 }
-.contact__list { display: grid; gap: var(--space-2); }
+.contact__list {
+  display: grid;
+  gap: var(--space-2);
+}
 .contact__list li {
   display: flex;
   flex-wrap: wrap;
@@ -863,7 +1281,9 @@ html {
 }
 
 @media (min-width: 56.25rem) {
-  .dotnav { display: block; }
+  .dotnav {
+    display: block;
+  }
 }
 
 .dotnav__list {
@@ -876,7 +1296,7 @@ html {
 /* The trace. Inset by the dot's own radius at each end so it stops at the
    first and last node instead of overshooting them. */
 .dotnav__list::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 9px;
   bottom: 9px;
@@ -903,7 +1323,7 @@ html {
   height: 9px;
   border-radius: 50%;
   background: color-mix(in srgb, var(--signal) 32%, var(--void));
-  transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 /* Absolutely positioned: the label must never widen the rail, or the dots
@@ -923,8 +1343,7 @@ html {
   color: var(--muted);
   opacity: 0;
   transform: translateY(-50%) translateX(4px);
-  transition: color .25s ease, opacity .25s ease, transform .25s ease,
-              font-size .25s ease;
+  transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease, font-size 0.25s ease;
 }
 
 /* Hover and focus always reveal a label, at every width: it is transient and
@@ -975,17 +1394,27 @@ html {
    visible — the page must not depend on a script to show its content.
    Only opacity and transform animate; nothing here triggers layout or paint.
    ========================================================================== */
+/* The rise composes with the element's own transform instead of replacing it.
+   An element that has to sit somewhere other than its flow position declares
+   --reveal-offset and keeps it through all three states; everything else leaves
+   the property unset and gets the plain rise.
+
+   Without this, `transform: none` here silently cancelled the .state badge's
+   centring on the trace — three classes against one, so the reveal won and the
+   run stopped short of its own terminus. Any future revealed element with a
+   transform of its own hits the same wall, which is why the fix is here rather
+   than in a one-off override. */
 .js-reveal .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .6s ease-out, transform .6s ease-out;
+  transform: translateY(20px) var(--reveal-offset, translateY(0));
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   /* Set per element by the observer to cascade siblings. */
   transition-delay: var(--reveal-delay, 0ms);
 }
 
 .js-reveal .reveal.is-visible {
   opacity: 1;
-  transform: none;
+  transform: var(--reveal-offset, none);
 }
 
 /* ==========================================================================
@@ -1010,15 +1439,23 @@ html {
    narrow one, where Skills peaks, asks for 50rem.
    ========================================================================== */
 @media (min-width: 70rem) and (min-height: 47rem) {
-  html { scroll-snap-type: y proximity; }
+  html {
+    scroll-snap-type: y proximity;
+  }
   #hero,
-  #skills { scroll-snap-align: start; }
+  #skills {
+    scroll-snap-align: start;
+  }
 }
 
 @media (min-width: 56.25rem) and (max-width: 69.9375rem) and (min-height: 50rem) {
-  html { scroll-snap-type: y proximity; }
+  html {
+    scroll-snap-type: y proximity;
+  }
   #hero,
-  #skills { scroll-snap-align: start; }
+  #skills {
+    scroll-snap-align: start;
+  }
 }
 
 /* ==========================================================================
@@ -1027,17 +1464,26 @@ html {
    the reveal state never applies, snapping is off, and no transition runs.
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-snap-type: none; }
+  html {
+    scroll-snap-type: none;
+  }
 
+  /* Cannot match today — scroll-effects.js never adds .js-reveal under reduced
+     motion — but it keeps this from being the next rule to cancel a lift. */
   .js-reveal .reveal {
     opacity: 1;
-    transform: none;
+    transform: var(--reveal-offset, none);
     transition: none;
   }
 
   .dotnav__dot,
-  .dotnav__label { transition: none; }
+  .dotnav__label {
+    transition: none;
+  }
   /* The lit node keeps its size — only the transition goes. */
 
-  a, .cta { transition: none; }
+  a,
+  .cta {
+    transition: none;
+  }
 }

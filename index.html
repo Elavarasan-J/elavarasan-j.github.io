@@ -95,24 +95,28 @@
         </span>
         <p class="hero__meta">
           Staff Engineer ·
-          <span id="tenure" data-since="2014-05">12 Years 3 Months</span>
+          <span id="tenure" data-since="2014-05">12 Years 4 Months</span>
           · Chennai, India
         </p>
         <h1 class="hero__name">Elavarasan J</h1>
         <p class="hero__thesis">I build the systems that build interfaces.</p>
         <nav class="hero__actions" aria-label="Contact and resume">
           <a class="cta" href="Elavarasan_Resume_2026.pdf" download>
-            <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>Download Resume
+            <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>
+            Download Resume
           </a>
           <span class="hero__channels">
             <a href="mailto:elavarasan.infotech10@gmail.com">
-              <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>Email
+              <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>
+              Email
             </a>
             <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">
-              <svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg>LinkedIn
+              <svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg>
+              LinkedIn
             </a>
             <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">
-              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+              GitHub
             </a>
           </span>
         </nav>
@@ -202,6 +206,8 @@
                 <li>PostgreSQL</li>
                 <li>FastAPI</li>
                 <li>PHP</li>
+                <li>Azure</li>
+                <li>AWS</li>
               </ul>
             </div>
           </div>
@@ -220,40 +226,101 @@
               The specialism is agentic, AI-driven development. It accelerates delivery, raises code quality, and cuts
               rework across complex UI systems.
             </p>
-          </div>
-
-          <!-- The process visual illustrates the paragraph above it: the pull-quote that used
-               to sit here said this in words, so it came out when the diagram moved in. -->
-          <div class="signature" data-state="pass">
-            <p class="signature__label">How the work gets made</p>
-            <div class="pipeline">
-              <ol class="pipeline__stages">
-                <li class="pipeline__stage">Design</li>
-                <li class="pipeline__stage">Structured spec</li>
-                <li class="pipeline__stage">Tested component</li>
-              </ol>
-              <p class="state">
-                <span class="state__pending">Pending</span>
-                <span class="state__pass">Pass</span>
-              </p>
-            </div>
-            <p class="readout">
-              <span class="readout__label">Component build time</span>
-              <span class="readout__delta">
-                <span class="readout__was">1–2 days</span>
-                <span class="readout__arrow" aria-hidden="true">▸</span>
-                <span class="readout__now">1–2 hours</span>
-              </span>
-            </p>
-          </div>
-
-          <div class="prose">
             <p>
               The work spans AI-powered dashboards, conversational interfaces, dynamic data visualisation, and reusable
               component architecture — with a consistent focus on clean code, performance, and maintainability.
             </p>
           </div>
           <p class="education">Education · B.Tech, Information Technology · Arunai College of Engineering</p>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           Process — its own section since 2026-09-03, on the owner's call.
+           It was the figure sitting under About's specialism paragraph, which
+           could carry the five-node run but had no room for what each stage
+           actually is. Given a section it carries the run *and* the sentence
+           per stage that makes it mean something to a reader who is not an
+           engineer. It sits immediately after About so the claim in that
+           paragraph and the proof are still adjacent, one section apart.
+
+           .section--band: the diagram spans both rail columns, because it is
+           an instrument rather than prose and five stages read across need the
+           whole shell. Measured — see styles.css.
+           ================================================================== -->
+      <section class="section section--band" id="process" data-nav-label="Process" aria-labelledby="process-h">
+        <div class="shell">
+          <h2 class="section__head" id="process-h">How a component gets built</h2>
+          <div class="prose">
+            <p>
+              Every component moves through the same five stages before it ships — requirements become behaviour,
+              behaviour becomes tests, and the tests drive the implementation.
+            </p>
+          </div>
+
+          <!-- The run ships data-state="pass" with every stage data-done, so no-JS
+               and reduced-motion visitors get the finished build with no script at
+               all; main.js demotes it and replays the traversal when motion is
+               welcome. data-hold marks the one stage that is reached and does not
+               light — the red phase. It lights on the same tick as the stage after
+               it, which is the whole argument of the figure: the node named red
+               turns green because green arrived. -->
+          <div class="process" data-state="pass">
+            <div class="pipeline">
+              <!-- role="list" only here, and only because the reset's list-style:none
+                   strips list semantics in Safari and this is the one list on the page
+                   whose *order* is the content. The printed 01-05 are aria-hidden, so
+                   without the role a screen reader would get five stages and no
+                   sequence. -->
+              <ol class="pipeline__stages" role="list">
+                <li class="pipeline__stage" data-done>
+                  <span class="pipeline__index" aria-hidden="true">01</span>
+                  <h3 class="pipeline__name">Requirements</h3>
+                  <p class="pipeline__note">What the component has to do, written down first.</p>
+                  <span class="pipeline__sources">Spec doc · Design doc · Image</span>
+                </li>
+                <li class="pipeline__stage" data-done>
+                  <span class="pipeline__index" aria-hidden="true">02</span>
+                  <h3 class="pipeline__name">Behaviour spec</h3>
+                  <p class="pipeline__note">The requirement turned into concrete, testable BDD scenarios.</p>
+                </li>
+                <li class="pipeline__stage" data-done data-hold>
+                  <span class="pipeline__index" aria-hidden="true">03</span>
+                  <h3 class="pipeline__name">Tests written</h3>
+                  <p class="pipeline__note">Written against the spec and failing on purpose — the red phase.</p>
+                </li>
+                <li class="pipeline__stage" data-done>
+                  <span class="pipeline__index" aria-hidden="true">04</span>
+                  <h3 class="pipeline__name">Implementation</h3>
+                  <p class="pipeline__note">Code written until every one of those tests turns green.</p>
+                </li>
+                <li class="pipeline__stage" data-done>
+                  <span class="pipeline__index" aria-hidden="true">05</span>
+                  <h3 class="pipeline__name">Tested component</h3>
+                  <p class="pipeline__note">A working, verified component, ready to ship.</p>
+                </li>
+              </ol>
+              <p class="state">
+                <span class="state__pending">Pending</span>
+                <span class="state__pass">Pass</span>
+              </p>
+            </div>
+
+            <!-- The page's one panel, and now it holds only the payoff: the section
+                 is the figure, so the frame marks the number the run bought rather
+                 than the whole block. -->
+            <div class="payoff">
+              <p class="payoff__label">Measured outcome</p>
+              <p class="readout">
+                <span class="readout__label">Component build time</span>
+                <span class="readout__delta">
+                  <span class="readout__was">1–2 days</span>
+                  <span class="readout__arrow" aria-hidden="true">▸</span>
+                  <span class="readout__now">1–2 hours</span>
+                </span>
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -268,7 +335,7 @@
             </h3>
             <p class="employer__meta">
               Full-time ·
-              <span data-since="2021-09">4 Years 11 Months</span>
+              <span data-since="2021-09">5 Years</span>
               · Chennai, India
             </p>
             <div class="role">
@@ -350,7 +417,8 @@
 
           <p class="work__more">
             <a href="Elavarasan_Projects_2026.pdf" download>
-              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>Download the full project list · PDF
+              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>
+              Download the full project list · PDF
             </a>
           </p>
         </div>
@@ -392,16 +460,23 @@
         </p>
         <ul class="contact__list">
           <li>
-            <span class="contact__key"><svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>Email</span>
+            <span class="contact__key">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>
+              Email
+            </span>
             <a href="mailto:elavarasan.infotech10@gmail.com">elavarasan.infotech10@gmail.com</a>
           </li>
           <li>
-            <span class="contact__key"><svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg>Phone</span>
+            <span class="contact__key">
+              <svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg>
+              Phone
+            </span>
             <a href="tel:+918015515823">+91 8015515823</a>
           </li>
           <li>
             <span class="contact__key">
-              <svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg>LinkedIn
+              <svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg>
+              LinkedIn
             </span>
             <a href="https://www.linkedin.com/in/elavarasanj/" target="_blank" rel="noopener">
               linkedin.com/in/elavarasanj
@@ -409,20 +484,23 @@
           </li>
           <li>
             <span class="contact__key">
-              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+              GitHub
             </span>
             <a href="https://github.com/Elavarasan-J" target="_blank" rel="noopener">github.com/Elavarasan-J</a>
           </li>
           <li>
             <span class="contact__key">
-              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>Resume
+              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>
+              Resume
             </span>
             <a href="Elavarasan_Resume_2026.pdf" download>Download PDF · 2 MB</a>
           </li>
         </ul>
         <p class="contact__cta">
           <a class="cta" href="mailto:elavarasan.infotech10@gmail.com">
-            <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>Send an email
+            <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>
+            Send an email
           </a>
         </p>
       </div>
